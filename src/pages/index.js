@@ -1,19 +1,59 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { graphql } from 'gatsby'
+
+import Link from 'gatsby-link'
+import Img from 'gatsby-image'
 
 import Layout from '../components/layout'
-import Image from '../components/image'
 
-const IndexPage = () => (
-  <Layout>
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: '300px', marginBottom: '1.45rem' }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+class IndexPage extends React.Component {
+
+  constructor(props) {
+    super(props)
+  }
+  render() {
+    const { data } = this.props
+    const posts = data.allContentfulGallery.edges
+
+    return (
+      <Layout>
+        <ul className="featured__list">
+          {posts.map(({ node: post }) => (
+            <li key={post.id}>
+              <Link to={post.slug + '/'}>
+                <Img
+                  sizes={post.cover.sizes}
+                  alt={post.cover.title}
+                  title={post.cover.title}
+                  backgroundColor={'#f1f1f1'}
+                />
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </Layout>
+    )
+  }
+}
+
+export const query = graphql`
+  query HomeQuery {
+    allContentfulGallery(limit: 8, sort: { fields: [createdAt], order: DESC }) {
+      edges {
+        node {
+          title
+          id
+          slug
+          cover {
+            title
+            sizes(maxWidth: 1800) {
+              ...GatsbyContentfulSizes_noBase64
+            }
+          }
+        }
+      }
+    }
+  }
+`
 
 export default IndexPage
