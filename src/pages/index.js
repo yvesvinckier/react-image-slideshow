@@ -1,53 +1,48 @@
-import React from 'react'
+import React, { Component } from 'react';
 import { graphql } from 'gatsby'
 
-import Link from 'gatsby-link'
-import Img from 'gatsby-image'
 import Slider from '../components/Slider'
+import data from '../data/data'
+import logo from '../images/logo.svg'
 
 import Layout from '../components/layout'
 
-class IndexPage extends React.Component {
+class IndexPage extends Component {
 
   constructor(props) {
     super(props);
-    const { data } = this.props
     this.state = {
-      posts: data.allContentfulGallery.edges,
-      post: data.allContentfulGallery.edges[0]
+      posts: this.props.data.allContentfulGallery.edges,
+      post: this.props.data.allContentfulGallery.edges[0].node
     }
 
   }
 
+
   nextPost = () => {
-    console.log('next');
-    const { data } = this.props;
-    const newIndex = this.state.post.node.index + 1;
+    const newIndex = this.state.post.index + 1;
     console.log(newIndex);
     this.setState({
-      post: data.allContentfulGallery.edges[newIndex]
+      post: this.props.data.allContentfulGallery.edges[newIndex].node
     })
   }
 
   prevPost = () => {
-    const { data } = this.props;
-    const newIndex = this.state.post.node.index;
-    // console.log(newIndex);
+    const newIndex = this.state.post.index - 1;
     this.setState({
-      post: data.allContentfulGallery.edges[newIndex]
+      post: this.props.data.allContentfulGallery.edges[newIndex].node
     })
   }
 
   render() {
 
-    const { post } = this.state;
-    const { data } = this.props;
-
-    const posts = data.allContentfulGallery.edges
-
+    const { post, posts } = this.state
+    //console.log(post);
+    //console.log(posts);
     return (
       <Layout>
         <div className="App">
+
           <button
             onClick={() => this.nextPost()}
             disabled={post.index === posts.length - 1}
@@ -56,23 +51,16 @@ class IndexPage extends React.Component {
             onClick={() => this.prevPost()}
             disabled={post.index === 0}
           >Prev</button>
+
           <div className="page">
+            <section>
+              <img src={logo} className="App-logo" alt="logo" />
+              <h1>Image slideshow React tutorial.</h1>
+            </section>
+
             <Slider post={post} />
+
           </div>
-          {/* <ul className="featured__list">
-            {posts.map(({ node: post }) => (
-              <li key={post.id}>
-                <Link to={post.slug + '/'}>
-                  <Img
-                    sizes={post.cover.sizes}
-                    alt={post.cover.title}
-                    title={post.cover.title}
-                    backgroundColor={'#f1f1f1'}
-                  />
-                </Link>
-              </li>
-            ))}
-          </ul> */}
         </div>
       </Layout>
     )
@@ -81,7 +69,7 @@ class IndexPage extends React.Component {
 
 export const query = graphql`
   query HomeQuery {
-    allContentfulGallery(limit: 8, sort: { fields: [createdAt], order: DESC }) {
+    allContentfulGallery(limit: 8) {
       edges {
         node {
           title
