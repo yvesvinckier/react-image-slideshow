@@ -4,9 +4,8 @@ import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 
 import Slider from '../components/Slider'
-import logo from '../images/logo.svg'
-
 import Layout from '../components/layout'
+import logo from '../images/logo.svg'
 
 class IndexPage extends Component {
 
@@ -28,13 +27,12 @@ class IndexPage extends Component {
 
   handleMouseWheel({ deltaY }) {
     const currentIndex = this.state.post.index
-    console.log(currentIndex);
     const newIndex = deltaY > 0 ? currentIndex + 1 : currentIndex - 1
     this.handleProjectSwitch(newIndex)
   }
+
   handleProjectSwitch = debounce(
     newIndex => {
-
       const projectsDataCount = this.state.posts.length - 1
       let index = newIndex
 
@@ -84,19 +82,20 @@ class IndexPage extends Component {
             onClick={() => this.prevPost()}
             disabled={post.index === 0}
           >Prev</button>
-
           <div className="page">
             <section>
               <img src={logo} className="App-logo" alt="logo" />
               <h1>Image slideshow React tutorial.</h1>
             </section>
-
-            <Slider
-              post={this.state.post}
-              posts={this.state.posts}
-
-            />
-
+            <div className="cards-slider">
+              <div className="cards-slider-wrapper" style={{
+                'transform': `translateX(-${post.index * (100 / posts.length)}%)`
+              }}>
+                {posts.map(({ node: post }) => (
+                  <Slider key={post.id} post={post} />
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </Layout>

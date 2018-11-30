@@ -116,6 +116,7 @@ section {
 /* #region cards slider */
 .cards-slider-wrapper {
   display: flex;
+  position: absolute;
 }
 .cards-slider {
   position: relative;
@@ -123,6 +124,7 @@ section {
   margin: 0 auto;
   .card {
     flex: 1;
+    min-width: 200px;
   }
   &:after {
     content: '';
