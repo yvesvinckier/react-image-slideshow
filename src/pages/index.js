@@ -5,7 +5,6 @@ import throttle from 'lodash/throttle'
 
 import Slider from '../components/Slider'
 import Layout from '../components/layout'
-import logo from '../images/logo.svg'
 
 class IndexPage extends Component {
 
@@ -68,8 +67,8 @@ class IndexPage extends Component {
   render() {
 
     const { post, posts } = this.state
-    console.log(post);
-    console.log(posts);
+    //console.log(post);
+    //console.log(posts);
     return (
       <Layout>
         <div className="App">
@@ -83,17 +82,18 @@ class IndexPage extends Component {
             disabled={post.index === 0}
           >Prev</button>
           <div className="page">
-            <section>
-              <img src={logo} className="App-logo" alt="logo" />
-              <h1>Image slideshow React tutorial.</h1>
-            </section>
+
             <div className="cards-slider">
-              <div className="cards-slider-wrapper" style={{
-                'transform': `translateX(-${post.index * (100 / posts.length)}%)`
-              }}>
-                {posts.map(({ node: post }) => (
+              <div
+                className="cards-slider-wrapper"
+              // style={{
+              //   'transform': `translateX(-${post.index * (100 / posts.length)}%)`
+              // }}
+              >
+                {/* {posts.map(({ node: post }) => (
                   <Slider key={post.id} post={post} />
-                ))}
+                ))} */}
+                <Slider key={post.id} post={post} />
               </div>
             </div>
           </div>
