@@ -114,8 +114,8 @@ export const query = graphql`
           index
           cover {
             title
-            sizes(maxWidth: 1800) {
-              ...GatsbyContentfulSizes_noBase64
+            resize {
+              src
             }
           }
         }
