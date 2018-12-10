@@ -26,57 +26,43 @@ class Slider extends Component {
     componentDidMount() {
         // create post tween
         this.postTween = new TimelineLite()
-            .fromTo(this.postImage, 0.85, { opacity: 0 }, { opacity: 1 })
+            .fromTo(this.postImage, 3, { opacity: 0 }, { opacity: 1 })
             //.from(this.postImage, 3, { opacity: 0 })
-            .from(this.postTitle, 1, { opacity: 0 }, "-=0.3")
+            .from(this.postTitle, 1, { opacity: 0 }, "-=2")
 
-        // 1. Create a Pixi renderer and define size and a background color
-        const renderer = PIXI.autoDetectRenderer(256, 256, {
+        const renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, { transparent: true });
+        this.postImage.appendChild(renderer.view);
 
-            // create transparent canvas
-            transparent: true
-
-        });
-        // 2. Append canvas element to the body
-        //document.body.appendChild(renderer.view);
-        this.postContainer.appendChild(renderer.view);
-        // console.log(renderer.view);
-
-        // 3. Create a container that will hold your scene
         const stage = new PIXI.Container();
 
-        // create a PIXI sprite from an image path
         const { cover } = this.props.post
-        const hawaii = PIXI.Sprite.fromImage(cover.resize.src);
+        const texture = PIXI.Texture.fromImage(cover.resize.src);
+        const logo = new PIXI.Sprite(texture);
 
+        const displacementSprite = PIXI.Sprite.fromImage(textureB);
 
-        stage.addChild(hawaii);
-        console.log(stage);
+        // add
+        const texture2 = PIXI.Texture.fromImage(textureB);
+        texture2.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
 
+        const displacementFilter = new PIXI.filters.DisplacementFilter(displacementSprite);
 
-        // Filter
-        //const displacementTexture = PIXI.Texture.fromImage(textureB);
-        const displacementTexture = PIXI.Texture.fromImage("http://i.imgur.com/2yYayZk.png");
-        console.log(displacementTexture);
-        const displacementFilter = new PIXI.filters.DisplacementFilter(displacementTexture);
-        console.log(displacementFilter);
-        // Apply Filter
-        stage.filters = [displacementFilter];
+        displacementSprite.scale.y = 0.38;
+        displacementSprite.scale.x = 0.38;
 
-        // add stage to the canvas
-        render();
+        stage.addChild(displacementSprite);
 
-        let count = 0.5;
+        stage.addChild(logo);
 
+        animate();
 
-        function render() {
-            requestAnimationFrame(render);
+        function animate() {
+            requestAnimationFrame(animate);
 
-            displacementFilter.scale.x = 5 * Math.sin(count * 1);
-            displacementFilter.scale.y = 5 * Math.sin(count * 1.2);
+            displacementSprite.x += .21;
+            displacementSprite.y += .21;
 
-            count += 0.05;
-
+            stage.filters = [displacementFilter];
             renderer.render(stage);
         }
     }
@@ -104,7 +90,7 @@ class Slider extends Component {
                 id={`card-${index}`}
                 className="card"
                 ref={(div) => { this.postContainer = div }}>
-                <div ref={div => this.postImage = div}>
+                <div ref={(div) => { this.postImage = div }}>
                     <img src={cover.resize.src} />
                 </div>
                 <div className="details">
