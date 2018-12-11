@@ -71,33 +71,24 @@ class IndexPage extends Component {
     //console.log(posts);
     return (
       <Layout>
-        <div className="App">
-
-          <button
-            onClick={() => this.nextPost()}
-            disabled={post.index === posts.length - 1}
-          >Next</button>
-          <button
-            onClick={() => this.prevPost()}
-            disabled={post.index === 0}
-          >Prev</button>
-          <div className="page">
-
-            <div className="cards-slider">
-              <div
-                className="cards-slider-wrapper"
-              // style={{
-              //   'transform': `translateX(-${post.index * (100 / posts.length)}%)`
-              // }}
-              >
-                {/* {posts.map(({ node: post }) => (
+        <main className="site-wrapper">
+          <div className="content content--fixed">
+          </div>
+          <div className="content">
+            {/* {posts.map(({ node: post }) => (
                   <Slider key={post.id} post={post} />
                 ))} */}
-                <Slider key={post.id} post={post} />
-              </div>
-            </div>
+            <Slider key={post.id} post={post} />
+            <button
+              onClick={() => this.nextPost()}
+              disabled={post.index === posts.length - 1}
+            >Next</button>
+            <button
+              onClick={() => this.prevPost()}
+              disabled={post.index === 0}
+            >Prev</button>
           </div>
-        </div>
+        </main>
       </Layout>
     )
   }
@@ -114,7 +105,7 @@ export const query = graphql`
           index
           cover {
             title
-            resize {
+            resize (width: 1920, quality: 100) {
               src
             }
           }

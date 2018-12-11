@@ -2,7 +2,8 @@ import React, { Component } from "react"
 import PropTypes from 'prop-types'
 // import Img from 'gatsby-image'
 import { TimelineLite } from 'gsap/all'
-import textureB from '../../images/2yYayZk.png'
+// import displacementImage from '../../images/dmaps/2048x2048/clouds.jpg'
+import displacementImage from '../../images/dmaps/2048x2048/ripple.jpg'
 import * as PIXI from 'pixi.js'
 
 
@@ -19,7 +20,8 @@ class Slider extends Component {
         // post tween
         this.postTween = null;
         this.state = {
-            playground: null
+            playground: null,
+            fullScreen: true
         }
     }
 
@@ -30,22 +32,56 @@ class Slider extends Component {
             //.from(this.postImage, 3, { opacity: 0 })
             .from(this.postTitle, 1, { opacity: 0 }, "-=2")
 
-        const renderer = PIXI.autoDetectRenderer(window.innerWidth, window.innerHeight, { transparent: true });
-        this.postImage.appendChild(renderer.view);
-
-        const stage = new PIXI.Container();
+        //  PIXI VARIABLES
+        /// ---------------------------   
+        const renderer = new PIXI.autoDetectRenderer(1920, 1080, { transparent: true })
+        const stage = new PIXI.Container()
+        var slidesContainer = new PIXI.Container()
+        const displacementSprite = new PIXI.Sprite.fromImage(displacementImage);
+        const displacementFilter = new PIXI.filters.DisplacementFilter(displacementSprite);
 
         const { cover } = this.props.post
         const texture = PIXI.Texture.fromImage(cover.resize.src);
         const logo = new PIXI.Sprite(texture);
 
-        const displacementSprite = PIXI.Sprite.fromImage(textureB);
+        /// ---------------------------
+        //  INITIALISE PIXI
+        /// --------------------------- 
+
+        // Add canvas to the postImage container
+        this.postImage.appendChild(renderer.view)
+
+        // Add child container to the main container 
+        stage.addChild(slidesContainer);
+
+
+        // Enable Interactions
+        stage.interactive = true;
+
+        console.log(renderer.view.style);
+
+        // Fit renderer to the screen
+        if (this.state.fullScreen === true) {
+            renderer.view.style.objectFit = 'cover';
+            renderer.view.style.width = '100%';
+            renderer.view.style.height = '100%';
+            renderer.view.style.top = '50%';
+            renderer.view.style.left = '50%';
+            renderer.view.style.webkitTransform = 'translate( -50%, -50% ) scale(1.2)';
+            renderer.view.style.transform = 'translate( -50%, -50% ) scale(1.2)';
+        } else {
+            renderer.view.style.maxWidth = '100%';
+            renderer.view.style.top = '50%';
+            renderer.view.style.left = '50%';
+            renderer.view.style.webkitTransform = 'translate( -50%, -50% )';
+            renderer.view.style.transform = 'translate( -50%, -50% )';
+        }
 
         // add
-        const texture2 = PIXI.Texture.fromImage(textureB);
+        const texture2 = PIXI.Texture.fromImage(displacementImage);
         texture2.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
 
-        const displacementFilter = new PIXI.filters.DisplacementFilter(displacementSprite);
+
 
         displacementSprite.scale.y = 0.38;
         displacementSprite.scale.x = 0.38;
@@ -88,19 +124,19 @@ class Slider extends Component {
         return (
             <div
                 id={`card-${index}`}
-                className="card"
+                className="slide-wrapper"
                 ref={(div) => { this.postContainer = div }}>
-                <div ref={(div) => { this.postImage = div }}>
-                    <img src={cover.resize.src} />
+                <div className="slide-item">
+                    <div ref={(div) => { this.postImage = div }}>
+                        {/* <img src={cover.resize.src} alt={title} /> */}
+                    </div>
+                    <div className="details">
+                        <span className="index">{index + 1}</span>
+                        <p className="location" ref={p => this.postTitle = p}>
+                            {title}
+                        </p>
+                    </div>
                 </div>
-                <div className="details">
-                    <span className="index">{index + 1}</span>
-                    <p className="location" ref={p => this.postTitle = p}>
-                        {title}
-                    </p>
-                </div>
-
-
             </div>
 
         )
