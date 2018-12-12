@@ -21,7 +21,8 @@ class Slider extends Component {
         this.postTween = null;
         this.state = {
             playground: null,
-            fullScreen: true
+            fullScreen: true,
+            displaceAutoFit: false
         }
     }
 
@@ -40,10 +41,6 @@ class Slider extends Component {
         const displacementSprite = new PIXI.Sprite.fromImage(displacementImage);
         const displacementFilter = new PIXI.filters.DisplacementFilter(displacementSprite);
 
-        const { cover } = this.props.post
-        const texture = PIXI.Texture.fromImage(cover.resize.src);
-        const logo = new PIXI.Sprite(texture);
-
         /// ---------------------------
         //  INITIALISE PIXI
         /// --------------------------- 
@@ -54,9 +51,9 @@ class Slider extends Component {
         // Add child container to the main container 
         stage.addChild(slidesContainer);
 
-
         // Enable Interactions
         stage.interactive = true;
+        slidesContainer.interactive = true;
 
         console.log(renderer.view.style);
 
@@ -77,28 +74,34 @@ class Slider extends Component {
             renderer.view.style.transform = 'translate( -50%, -50% )';
         }
 
-        // add
-        const texture2 = PIXI.Texture.fromImage(displacementImage);
-        texture2.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
+        displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT;
 
+        /// ---------------------------
+        //  LOAD IMAGES TO CANVAS
+        /// --------------------------- 
+        const sprites = this.props.post.cover.resize.src
 
+        const texture = PIXI.Texture.fromImage(sprites);
+        const image = new PIXI.Sprite(texture);
 
-        displacementSprite.scale.y = 0.38;
-        displacementSprite.scale.x = 0.38;
+        slidesContainer.addChild(image);
+
+        // Set the filter to stage and set some default values for the animation
+        stage.filters = [displacementFilter];
+
+        displacementSprite.scale.x = 2;
+        displacementSprite.scale.y = 2;
+
+        // PIXI tries to fit the filter bounding box to the renderer so we optionally bypass
+        displacementFilter.autoFit = this.state.displaceAutoFit;
 
         stage.addChild(displacementSprite);
-
-        stage.addChild(logo);
-
         animate();
 
         function animate() {
             requestAnimationFrame(animate);
-
-            displacementSprite.x += .21;
-            displacementSprite.y += .21;
-
-            stage.filters = [displacementFilter];
+            displacementSprite.x += 2.14;
+            displacementSprite.y += 22.24;
             renderer.render(stage);
         }
     }
@@ -120,7 +123,7 @@ class Slider extends Component {
     }
 
     render() {
-        const { index, title, cover } = this.props.post
+        const { index, title } = this.props.post
         return (
             <div
                 id={`card-${index}`}
