@@ -1,7 +1,7 @@
 import React, { Component } from "react"
 import PropTypes from 'prop-types'
 // import Img from 'gatsby-image'
-import { TimelineLite } from 'gsap/all'
+import { TimelineLite, TweenMax } from 'gsap/all'
 // import displacementImage from '../../images/dmaps/2048x2048/clouds.jpg'
 import displacementImage from '../../images/dmaps/2048x2048/ripple.jpg'
 import * as PIXI from 'pixi.js'
@@ -22,7 +22,8 @@ class Slider extends Component {
         this.state = {
             playground: null,
             fullScreen: true,
-            displaceAutoFit: false
+            displaceAutoFit: false,
+            displacementCenter: true
         }
     }
 
@@ -30,7 +31,6 @@ class Slider extends Component {
         // create post tween
         this.postTween = new TimelineLite()
             .fromTo(this.postImage, 3, { opacity: 0 }, { opacity: 1 })
-            //.from(this.postImage, 3, { opacity: 0 })
             .from(this.postTitle, 1, { opacity: 0 }, "-=2")
 
         //  PIXI VARIABLES
@@ -53,9 +53,8 @@ class Slider extends Component {
 
         // Enable Interactions
         stage.interactive = true;
-        slidesContainer.interactive = true;
 
-        console.log(renderer.view.style);
+        //console.log(renderer.view.style);
 
         // Fit renderer to the screen
         if (this.state.fullScreen === true) {
@@ -96,14 +95,48 @@ class Slider extends Component {
         displacementFilter.autoFit = this.state.displaceAutoFit;
 
         stage.addChild(displacementSprite);
-        animate();
-
-        function animate() {
-            requestAnimationFrame(animate);
-            displacementSprite.x += 2.14;
-            displacementSprite.y += 22.24;
-            renderer.render(stage);
+        /// ---------------------------
+        //  CENTER DISPLACEMENT
+        /// ---------------------------
+        if (this.state.displacementCenter === true) {
+            // center the sprite's anchor point
+            displacementSprite.anchor.set(0.5);
+            // move the sprite to the center of the screen
+            displacementSprite.x = renderer.view.width / 2;
+            displacementSprite.y = renderer.view.height / 2;
         }
+        // animate();
+
+        // function animate() {
+        //     requestAnimationFrame(animate);
+        //     displacementSprite.x += 2.14;
+        //     displacementSprite.y += 22.24;
+        //     renderer.render(stage);
+        // }
+        const ticker = new PIXI.ticker.Ticker();
+        ticker.autoStart = true;
+
+        ticker.add(function (delta) {
+
+            displacementSprite.x += 10 * delta;
+            displacementSprite.y += 3;
+
+            renderer.render(stage);
+
+        });
+        /// ---------------------------
+        //  INTERACTIONS
+        /// ---------------------------
+        slidesContainer.interactive = true;
+        const mouseEventHandler = function (mouseData) {
+            const mouseX = mouseData.data.global.x / 40;
+            console.log(mouseX);
+            const mouseY = mouseData.data.global.y / 40;
+            console.log(mouseY);
+            // TweenMax.to(displacementFilter.scale, 1, { x: "+=" + Math.sin(mouseX) * 100 + "", y: "+=" + Math.cos(mouseY) * 100 + "" });
+            TweenMax.to(displacementFilter.scale, 1, { x: "+=" + Math.sin(mouseX) * 100 + "" });
+        }
+        slidesContainer.on("mousemove", mouseEventHandler);
     }
 
 
@@ -111,13 +144,13 @@ class Slider extends Component {
     componentDidUpdate(prevProps) {
         const actualTitle = this.props.post.title
         const prevTitle = this.prevProps.post.title
-        console.log(actualTitle);
-        console.log(prevTitle);
+        //console.log(actualTitle);
+        //console.log(prevTitle);
 
         if (prevProps.post.title !== this.props.post.title) {
             //this.postTween.play();
             //console.log(prevProps.post.title);
-            console.log(actualTitle);
+            //console.log(actualTitle);
         }
 
     }
