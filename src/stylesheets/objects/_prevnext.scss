@@ -1,0 +1,22 @@
+.prev_next {
+  position: absolute;
+  bottom: calc(7vw - 17px);
+  //left: -17px;
+  //line-height: 0;
+  //font-size: 0;
+}
+.to_prev {
+  opacity: 0.44;
+  padding: 17px;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  &:hover {
+    opacity: 1;
+  }
+}
+button {
+  border: none;
+  text-decoration: none;
+  background: transparent;
+}
