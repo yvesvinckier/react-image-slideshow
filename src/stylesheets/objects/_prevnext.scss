@@ -2,8 +2,8 @@
   position: absolute;
   bottom: calc(7vw - 17px);
   //left: -17px;
-  //line-height: 0;
-  //font-size: 0;
+  line-height: 0;
+  font-size: 0;
 }
 .to_prev {
   opacity: 0.44;
@@ -11,12 +11,20 @@
   position: relative;
   display: inline-block;
   cursor: pointer;
+  transition: all 0.3s;
   &:hover {
     opacity: 1;
   }
 }
-button {
-  border: none;
-  text-decoration: none;
-  background: transparent;
+.to_next {
+  opacity: 0.44;
+  padding: 17px;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transform: rotate(180deg);
+  transition: all 0.3s;
+  &:hover {
+    opacity: 1;
+  }
 }

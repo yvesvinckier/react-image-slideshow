@@ -17,6 +17,8 @@ class Slider extends Component {
         this.postTitle = null;
         // post Image
         this.postImage = null;
+        // post Number
+        this.postNumber = null;
         // post tween
         this.postTween = null;
         this.state = {
@@ -28,10 +30,6 @@ class Slider extends Component {
     }
 
     componentDidMount() {
-        // create post tween
-        this.postTween = new TimelineLite()
-            .fromTo(this.postImage, 3, { opacity: 0 }, { opacity: 1 })
-            .from(this.postTitle, 1, { opacity: 0 }, "-=2")
 
         //  PIXI VARIABLES
         /// ---------------------------   
@@ -130,13 +128,21 @@ class Slider extends Component {
         slidesContainer.interactive = true;
         const mouseEventHandler = function (mouseData) {
             const mouseX = mouseData.data.global.x / 40;
-            console.log(mouseX);
+            console.log((mouseX) / 100);
             const mouseY = mouseData.data.global.y / 40;
             console.log(mouseY);
             // TweenMax.to(displacementFilter.scale, 1, { x: "+=" + Math.sin(mouseX) * 100 + "", y: "+=" + Math.cos(mouseY) * 100 + "" });
-            TweenMax.to(displacementFilter.scale, 1, { x: "+=" + Math.sin(mouseX) * 100 + "" });
+            // TweenMax.to(displacementFilter.scale, 1, { x: "+=" + Math.sin(mouseX) * 100 + "" });
+            TweenMax.to(displacementFilter.scale, 1, { x: "+=" + (mouseX) / 100 + "" });
+
         }
         slidesContainer.on("mousemove", mouseEventHandler);
+
+        // create post tween
+        this.postTween = new TimelineLite()
+            .fromTo(this.postImage, 3, { opacity: 0 }, { opacity: 1 })
+            .fromTo(this.postTitle, 3, { opacity: 0 }, { opacity: 1 }, "-=2")
+            .fromTo(this.postNumber, 3, { opacity: 0 }, { opacity: 1 }, "-=2")
     }
 
 
@@ -158,21 +164,14 @@ class Slider extends Component {
     render() {
         const { index, title } = this.props.post
         return (
-            <div
-                id={`card-${index}`}
-                className="slide-wrapper"
-                ref={(div) => { this.postContainer = div }}>
-                <div className="slide-item">
-                    <div ref={(div) => { this.postImage = div }}>
-                        {/* <img src={cover.resize.src} alt={title} /> */}
-                    </div>
-                    <div className="details">
-                        <span className="index">{index + 1}</span>
-                        <p className="location" ref={p => this.postTitle = p}>
-                            {title}
-                        </p>
-                    </div>
+            <div>
+                <div ref={(div) => { this.postImage = div }}>
+                    {/* <img src={cover.resize.src} alt={title} /> */}
                 </div>
+                <h1 className="title" ref={h1 => this.postTitle = h1}>
+                    {title}
+                </h1>
+                <span className="index" ref={span => this.postNumber = span}>0{index + 1}</span>
             </div>
 
         )

@@ -5,7 +5,8 @@ import throttle from 'lodash/throttle'
 
 import Slider from '../components/Slider'
 import Layout from '../components/layout'
-// import arrowLeft from '../images/arrow-left'
+import SVGArrowPrev from '../images/arrow-prev.svg'
+import SVGArrowNext from '../images/arrow-next.svg'
 
 class IndexPage extends Component {
 
@@ -83,26 +84,15 @@ class IndexPage extends Component {
                 className="to_prev"
                 onClick={() => this.prevPost()}
                 disabled={post.index === 0}>
-                <svg width="12px" height="8px" viewBox="0 0 12 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xlinkHref="http://www.w3.org/1999/xlink">
-                  <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-                    <g id="Artboard-Copy-5" transform="translate(-569.000000, -625.000000)" stroke="#FFFFFF" strokeWidth="2">
-                      <g id="Group-6" transform="translate(570.000000, 623.000000)">
-                        <polyline id="Rectangle-2" transform="translate(4.949747, 8.949747) scale(-1, -1) rotate(-45.000000) translate(-4.949747, -8.949747) " points="8.44974747 12.4497475 1.44974747 12.4497475 1.44974747 5.44974747 1.44974747 5.44974747"></polyline>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
+                <img src={SVGArrowPrev} alt="" />
+              </button>
+              <button
+                className="to_next"
+                onClick={() => this.nextPost()}
+                disabled={post.index === posts.length - 1}>
+                <img src={SVGArrowNext} alt="" />
               </button>
             </div>
-            <button
-              onClick={() => this.nextPost()}
-              disabled={post.index === posts.length - 1}
-            >Next</button>
-            <button
-              onClick={() => this.prevPost()}
-              disabled={post.index === 0}
-            >Prev</button>
-
           </div>
         </main>
       </Layout>

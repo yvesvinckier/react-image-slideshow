@@ -1,6 +1,14 @@
+//Variables
+@import '_vars';
+
 //Generic
+@import 'generic/_clearfix';
 @import 'generic/_reset';
 @import 'generic/_mixins';
+
+//Base
+@import 'base/_main';
+@import 'base/_forms';
 
 @import 'objects/_app';
 @import 'objects/prevnext';
