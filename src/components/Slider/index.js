@@ -1,7 +1,8 @@
 import React, { Component } from "react"
 import PropTypes from 'prop-types'
+import { Link } from 'gatsby'
 // import Img from 'gatsby-image'
-import { TimelineLite, TweenMax } from 'gsap/all'
+import { TimelineLite, TweenMax, Power2 } from 'gsap/all'
 // import displacementImage from '../../images/dmaps/2048x2048/clouds.jpg'
 import displacementImage from '../../images/dmaps/2048x2048/ripple.jpg'
 import * as PIXI from 'pixi.js'
@@ -19,8 +20,10 @@ class Slider extends Component {
         this.postImage = null;
         // post Number
         this.postNumber = null;
+        // post Category
+        this.postCategory = null;
         // post tween
-        this.postTween = null;
+        this.postTween = new TimelineLite();
         this.state = {
             playground: null,
             fullScreen: true,
@@ -139,10 +142,11 @@ class Slider extends Component {
         slidesContainer.on("mousemove", mouseEventHandler);
 
         // create post tween
-        this.postTween = new TimelineLite()
-            .fromTo(this.postImage, 3, { opacity: 0 }, { opacity: 1 })
-            .fromTo(this.postTitle, 3, { opacity: 0 }, { opacity: 1 }, "-=2")
-            .fromTo(this.postNumber, 3, { opacity: 0 }, { opacity: 1 }, "-=2")
+        this.postTween
+            .from(this.postImage, 1, { opacity: 0, ease: Power2.easeOut })
+            .from(this.postTitle, 1, { x: "-=40px", opacity: 0, ease: Power2.easeOut }, "-=0.4")
+            .from(this.postCategory, 1, { x: "-=40px", opacity: 0, ease: Power2.easeOut }, "-=0.5")
+            .from(this.postNumber, 1, { x: "-=40px", opacity: 0, ease: Power2.easeOut }, "-=0.75")
     }
 
 
@@ -154,7 +158,7 @@ class Slider extends Component {
         //console.log(prevTitle);
 
         if (prevProps.post.title !== this.props.post.title) {
-            //this.postTween.play();
+            this.postTween.play();
             //console.log(prevProps.post.title);
             //console.log(actualTitle);
         }
@@ -165,13 +169,27 @@ class Slider extends Component {
         const { index, title } = this.props.post
         return (
             <div>
-                <div ref={(div) => { this.postImage = div }}>
+                <section className="inner_col">
+                    <div className="col1">
+                    </div>
+                    <div className="col2">
+                        <h3 className="category" ref={h3 => this.postCategory = h3}>[ UI, Web Design ]</h3>
+                        <Link to="/page-2/" className="inner_h2">
+                            <h2 className="title" ref={h2 => this.postTitle = h2}>
+                                {title}
+                            </h2>
+                        </Link>
+                        <div className="num random" ref={(div) => { this.postNumber = div }}>
+                            <span className="slash">/ </span>
+                            <span className="num_project">0{index + 1}</span>
+                            <span className="work"> [ work ]</span>
+                        </div>
+                    </div>
+                </section>
+
+                <div ref={div => this.postImage = div}>
                     {/* <img src={cover.resize.src} alt={title} /> */}
                 </div>
-                <h1 className="title" ref={h1 => this.postTitle = h1}>
-                    {title}
-                </h1>
-                <span className="index" ref={span => this.postNumber = span}>0{index + 1}</span>
             </div>
 
         )

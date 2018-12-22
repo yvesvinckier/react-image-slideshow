@@ -73,27 +73,26 @@ class IndexPage extends Component {
     //console.log(posts);
     return (
       <Layout>
-        <main className="site-wrapper">
-          <div className="content">
-            {/* {posts.map(({ node: post }) => (
+        <main className="">
+          {/* {posts.map(({ node: post }) => (
                   <Slider key={post.id} post={post} />
                 ))} */}
-            <Slider key={post.id} post={post} />
-            <div className="prev_next">
-              <button
-                className="to_prev"
-                onClick={() => this.prevPost()}
-                disabled={post.index === 0}>
-                <img src={SVGArrowPrev} alt="" />
-              </button>
-              <button
-                className="to_next"
-                onClick={() => this.nextPost()}
-                disabled={post.index === posts.length - 1}>
-                <img src={SVGArrowNext} alt="" />
-              </button>
-            </div>
+          <Slider key={post.id} post={post} />
+          <div className="prev_next">
+            <button
+              className="to_prev"
+              onClick={() => this.prevPost()}
+              disabled={post.index === 0}>
+              <img src={SVGArrowPrev} alt="" />
+            </button>
+            <button
+              className="to_next"
+              onClick={() => this.nextPost()}
+              disabled={post.index === posts.length - 1}>
+              <img src={SVGArrowNext} alt="" />
+            </button>
           </div>
+
         </main>
       </Layout>
     )

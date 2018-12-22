@@ -9,6 +9,9 @@
 //Base
 @import 'base/_main';
 @import 'base/_forms';
+@import 'base/links';
 
+//Objects
 @import 'objects/_app';
 @import 'objects/prevnext';
+@import 'objects/slider';
