@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 // import Img from 'gatsby-image'
+import firstCircle from '../../images/circle.svg'
+import animateCircle from '../../images/circle-animate.svg'
 import { TimelineLite, TweenMax, Power2 } from 'gsap/all'
 // import displacementImage from '../../images/dmaps/2048x2048/clouds.jpg'
 import displacementImage from '../../images/dmaps/2048x2048/ripple.jpg'
@@ -173,10 +175,38 @@ class Slider extends Component {
 
   render() {
     const { index, title } = this.props.post
+    //const circleValue = this.props.post.index * (100 / this.props.post.length)
+    //console.log(circleValue)
     return (
       <div>
         <section className="inner_col">
-          <div className="col1" />
+          <div className="col1">
+            <img src={firstCircle} alt="" />
+            <svg
+              id="cercle_blanc"
+              width="62px"
+              height="62px"
+              viewBox="0 0 62 62"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xlinkHref="http://www.w3.org/1999/xlink"
+            >
+              <circle
+                id="Oval"
+                strokeWidth="2"
+                fill="none"
+                stroke="#FFFFFF"
+                //strokeDashoffset="(-${index*(100/post.length)})"
+                opacity="0.5"
+                cx="30"
+                cy="30"
+                r="30"
+                style={{
+                  strokeDashoffset: '',
+                }}
+              />
+            </svg>
+          </div>
           <div className="col2">
             <h3 className="category" ref={h3 => (this.postCategory = h3)}>
               [ UI, Web Design ]

@@ -9,12 +9,11 @@ import SVGArrowPrev from '../images/arrow-prev.svg'
 import SVGArrowNext from '../images/arrow-next.svg'
 
 class IndexPage extends Component {
-
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       posts: this.props.data.allContentfulGallery.edges,
-      post: this.props.data.allContentfulGallery.edges[0].node
+      post: this.props.data.allContentfulGallery.edges[0].node,
     }
   }
   componentDidMount() {
@@ -44,32 +43,32 @@ class IndexPage extends Component {
       }
 
       this.setState({
-        post: this.props.data.allContentfulGallery.edges[index].node
+        post: this.props.data.allContentfulGallery.edges[index].node,
       })
-
     },
     350,
     { leading: true, trailing: false }
   )
 
   nextPost = () => {
-    const newIndex = this.state.post.index + 1;
+    const newIndex = this.state.post.index + 1
+    console.log(newIndex)
     this.setState({
-      post: this.props.data.allContentfulGallery.edges[newIndex].node
+      post: this.props.data.allContentfulGallery.edges[newIndex].node,
     })
   }
 
   prevPost = () => {
-    const newIndex = this.state.post.index - 1;
+    const newIndex = this.state.post.index - 1
     this.setState({
-      post: this.props.data.allContentfulGallery.edges[newIndex].node
+      post: this.props.data.allContentfulGallery.edges[newIndex].node,
     })
   }
 
   render() {
-
     const { post, posts } = this.state
-    //console.log(post);
+    const circleValue = this.state.post.index + 1 * (100 / posts.length)
+    console.log(circleValue)
     //console.log(posts);
     return (
       <Layout>
@@ -82,17 +81,18 @@ class IndexPage extends Component {
             <button
               className="to_prev"
               onClick={() => this.prevPost()}
-              disabled={post.index === 0}>
+              disabled={post.index === 0}
+            >
               <img src={SVGArrowPrev} alt="" />
             </button>
             <button
               className="to_next"
               onClick={() => this.nextPost()}
-              disabled={post.index === posts.length - 1}>
+              disabled={post.index === posts.length - 1}
+            >
               <img src={SVGArrowNext} alt="" />
             </button>
           </div>
-
         </main>
       </Layout>
     )
@@ -101,23 +101,23 @@ class IndexPage extends Component {
 
 export const query = graphql`
   query HomeQuery {
-          allContentfulGallery(limit: 8, sort: {fields: index, order: ASC}) {
-          edges {
+    allContentfulGallery(limit: 8, sort: { fields: index, order: ASC }) {
+      edges {
         node {
           title
           id
-        slug
-        index
+          slug
+          index
           cover {
-          title
-            resize (width: 1920, quality: 100) {
-          src
-        }
+            title
+            resize(width: 1920, quality: 100) {
+              src
+            }
+          }
         }
       }
     }
   }
-}
 `
 
 export default IndexPage

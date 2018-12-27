@@ -4,7 +4,21 @@
   display: flex;
 }
 .col1 {
+  padding: calc(40vh - 35px) 0 0 26%;
+  display: inline-block;
+  vertical-align: top;
+  line-height: 0;
   flex: 0 1 44%;
+}
+.col1 svg {
+  display: block;
+}
+#cercle_blanc {
+  stroke-dashoffset: 190;
+  stroke-dasharray: 190;
+  position: absolute;
+  top: calc(40vh - 35px);
+  stroke-linecap: round;
 }
 .col2 {
   position: relative;
