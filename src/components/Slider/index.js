@@ -179,55 +179,26 @@ class Slider extends Component {
     //console.log(circleValue)
     return (
       <div>
-        <section className="inner_col">
-          <div className="col1">
-            <img src={firstCircle} alt="" />
-            <svg
-              id="cercle_blanc"
-              width="62px"
-              height="62px"
-              viewBox="0 0 62 62"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xlinkHref="http://www.w3.org/1999/xlink"
-            >
-              <circle
-                id="Oval"
-                strokeWidth="2"
-                fill="none"
-                stroke="#FFFFFF"
-                //strokeDashoffset="(-${index*(100/post.length)})"
-                opacity="0.5"
-                cx="30"
-                cy="30"
-                r="30"
-                style={{
-                  strokeDashoffset: '',
-                }}
-              />
-            </svg>
+        <div>
+          <h3 className="category" ref={h3 => (this.postCategory = h3)}>
+            [ UI, Web Design ]
+          </h3>
+          <Link to="/page-2/" className="inner_h2">
+            <h2 className="title" ref={h2 => (this.postTitle = h2)}>
+              {title}
+            </h2>
+          </Link>
+          <div
+            className="num random"
+            ref={div => {
+              this.postNumber = div
+            }}
+          >
+            <span className="slash">/ </span>
+            <span className="num_project">0{index + 1}</span>
+            <span className="work"> [ work ]</span>
           </div>
-          <div className="col2">
-            <h3 className="category" ref={h3 => (this.postCategory = h3)}>
-              [ UI, Web Design ]
-            </h3>
-            <Link to="/page-2/" className="inner_h2">
-              <h2 className="title" ref={h2 => (this.postTitle = h2)}>
-                {title}
-              </h2>
-            </Link>
-            <div
-              className="num random"
-              ref={div => {
-                this.postNumber = div
-              }}
-            >
-              <span className="slash">/ </span>
-              <span className="num_project">0{index + 1}</span>
-              <span className="work"> [ work ]</span>
-            </div>
-          </div>
-        </section>
+        </div>
 
         <div ref={div => (this.postImage = div)}>
           {/* <img src={cover.resize.src} alt={title} /> */}

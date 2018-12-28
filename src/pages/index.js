@@ -7,6 +7,8 @@ import Slider from '../components/Slider'
 import Layout from '../components/layout'
 import SVGArrowPrev from '../images/arrow-prev.svg'
 import SVGArrowNext from '../images/arrow-next.svg'
+import firstCircle from '../images/circle.svg'
+import animateCircle from '../images/circle-animate.svg'
 
 class IndexPage extends Component {
   constructor(props) {
@@ -67,33 +69,66 @@ class IndexPage extends Component {
 
   render() {
     const { post, posts } = this.state
-    const circleValue = this.state.post.index + 1 * (100 / posts.length)
+    const radius = 30
+    const postIndex = this.state.post.index + 1
+    // const circleValue = this.state.post.index + 1 * (100 / posts.length)
+    const circleValue = (2 * Math.PI * radius) / postIndex
     console.log(circleValue)
     //console.log(posts);
     return (
       <Layout>
-        <main className="">
-          {/* {posts.map(({ node: post }) => (
+        <section className="inner_col">
+          <div className="col1">
+            <img src={firstCircle} alt="" />
+            <svg
+              id="cercle_blanc"
+              width="62px"
+              height="62px"
+              viewBox="0 0 62 62"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xlinkHref="http://www.w3.org/1999/xlink"
+            >
+              <circle
+                id="Oval"
+                strokeWidth="2"
+                fill="none"
+                stroke="#FFFFFF"
+                //strokeDashoffset="(-${index*(100/post.length)})"
+                opacity="1"
+                cx="30"
+                cy="30"
+                r="30"
+                style={{
+                  strokeDashoffset: `(-${circleValue})`,
+                }}
+              />
+            </svg>
+          </div>
+          <div className="col2">
+            {/* {posts.map(({ node: post }) => (
                   <Slider key={post.id} post={post} />
                 ))} */}
-          <Slider key={post.id} post={post} />
-          <div className="prev_next">
-            <button
-              className="to_prev"
-              onClick={() => this.prevPost()}
-              disabled={post.index === 0}
-            >
-              <img src={SVGArrowPrev} alt="" />
-            </button>
-            <button
-              className="to_next"
-              onClick={() => this.nextPost()}
-              disabled={post.index === posts.length - 1}
-            >
-              <img src={SVGArrowNext} alt="" />
-            </button>
+
+            <Slider key={post.id} post={post} />
+            <div className="prev_next">
+              <button
+                className="to_prev"
+                onClick={() => this.prevPost()}
+                disabled={post.index === 0}
+              >
+                <img src={SVGArrowPrev} alt="" />
+              </button>
+              <button
+                className="to_next"
+                onClick={() => this.nextPost()}
+                disabled={post.index === posts.length - 1}
+              >
+                <img src={SVGArrowNext} alt="" />
+              </button>
+            </div>
           </div>
-        </main>
+        </section>
       </Layout>
     )
   }
