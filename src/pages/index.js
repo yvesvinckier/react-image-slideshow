@@ -71,9 +71,14 @@ class IndexPage extends Component {
     const { post, posts } = this.state
     const radius = 30
     const postIndex = this.state.post.index + 1
-    // const circleValue = this.state.post.index + 1 * (100 / posts.length)
+    const postLength = posts.length
+    // const circleValue = this.state.post.index  1+ * (100 / posts.length)
     const circleValue = (2 * Math.PI * radius) / postIndex
+    console.log(postIndex)
     console.log(circleValue)
+    const dashStyle = {
+      '--dashActive': circleValue
+    }
     //console.log(posts);
     return (
       <Layout>
@@ -88,20 +93,17 @@ class IndexPage extends Component {
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
               xlinkHref="http://www.w3.org/1999/xlink"
+              style={dashStyle}
             >
               <circle
                 id="Oval"
                 strokeWidth="2"
                 fill="none"
                 stroke="#FFFFFF"
-                //strokeDashoffset="(-${index*(100/post.length)})"
                 opacity="1"
                 cx="30"
                 cy="30"
                 r="30"
-                style={{
-                  strokeDashoffset: `(-${circleValue})`,
-                }}
               />
             </svg>
           </div>

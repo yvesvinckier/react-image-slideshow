@@ -12,9 +12,10 @@
 }
 .col1 svg {
   display: block;
+  --dashActive: 158.333;
 }
 #cercle_blanc {
-  stroke-dashoffset: 190;
+  stroke-dashoffset: var(--dashActive);
   stroke-dasharray: 190;
   position: absolute;
   top: calc(40vh - 35px);
