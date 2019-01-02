@@ -13,6 +13,7 @@
 .col1 svg {
   display: block;
   --dashActive: 158.333;
+  transition: 2s forwards;
 }
 #cercle_blanc {
   stroke-dashoffset: var(--dashActive);

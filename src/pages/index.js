@@ -71,13 +71,15 @@ class IndexPage extends Component {
     const { post, posts } = this.state
     const radius = 30
     const postIndex = this.state.post.index + 1
+    const circumference = 2 * Math.PI * radius
     const postLength = posts.length
     // const circleValue = this.state.post.index  1+ * (100 / posts.length)
-    const circleValue = (2 * Math.PI * radius) / postIndex
+    const circleValue =
+      2 * Math.PI * radius - (circumference * postIndex) / postLength
     console.log(postIndex)
     console.log(circleValue)
     const dashStyle = {
-      '--dashActive': circleValue
+      '--dashActive': circleValue,
     }
     //console.log(posts);
     return (
