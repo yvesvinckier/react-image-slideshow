@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { graphql } from 'gatsby'
+import { Link } from 'gatsby'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 
@@ -8,7 +9,6 @@ import Layout from '../components/layout'
 import SVGArrowPrev from '../images/arrow-prev.svg'
 import SVGArrowNext from '../images/arrow-next.svg'
 import firstCircle from '../images/circle.svg'
-import animateCircle from '../images/circle-animate.svg'
 
 class IndexPage extends Component {
   constructor(props) {
@@ -73,15 +73,10 @@ class IndexPage extends Component {
     const postIndex = this.state.post.index + 1
     const circumference = 2 * Math.PI * radius
     const postLength = posts.length
-    // const circleValue = this.state.post.index  1+ * (100 / posts.length)
-    const circleValue =
-      2 * Math.PI * radius - (circumference * postIndex) / postLength
-    console.log(postIndex)
-    console.log(circleValue)
+    const circleValue = 2 * Math.PI * radius - (circumference * postIndex) / postLength
     const dashStyle = {
       '--dashActive': circleValue,
     }
-    //console.log(posts);
     return (
       <Layout>
         <section className="inner_col">
@@ -108,7 +103,12 @@ class IndexPage extends Component {
                 r="30"
               />
             </svg>
+            <div className='random'>
+              <Link to='/'>View Project</Link>
+              <span className='year'>2018</span>
+            </div>
           </div>
+
           <div className="col2">
             {/* {posts.map(({ node: post }) => (
                   <Slider key={post.id} post={post} />
@@ -133,7 +133,7 @@ class IndexPage extends Component {
             </div>
           </div>
         </section>
-      </Layout>
+      </Layout >
     )
   }
 }

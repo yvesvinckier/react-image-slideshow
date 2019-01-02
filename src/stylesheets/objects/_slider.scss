@@ -4,16 +4,18 @@
   display: flex;
 }
 .col1 {
+  position: relative;
   padding: calc(40vh - 35px) 0 0 26%;
   display: inline-block;
   vertical-align: top;
   line-height: 0;
   flex: 0 1 44%;
 }
-.col1 svg {
+.col1 svg,
+.col1 img {
   display: block;
   --dashActive: 158.333;
-  transition: 2s forwards;
+  transition: all 2s linear;
 }
 #cercle_blanc {
   stroke-dashoffset: var(--dashActive);
@@ -68,4 +70,17 @@
   margin-left: 10px;
   transform: translateY(-2px);
   display: inline-block;
+}
+.random {
+  font-weight: 400;
+  font-size: 13px;
+  margin-top: 132px;
+  display: inline-block;
+  margin-left: -12px;
+}
+.year {
+  font-size: 12px;
+  display: block;
+  text-align: right;
+  margin-top: 35px;
 }

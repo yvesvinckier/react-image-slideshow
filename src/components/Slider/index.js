@@ -1,9 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
-// import Img from 'gatsby-image'
-import firstCircle from '../../images/circle.svg'
-import animateCircle from '../../images/circle-animate.svg'
 import { TimelineLite, TweenMax, Power2 } from 'gsap/all'
 // import displacementImage from '../../images/dmaps/2048x2048/clouds.jpg'
 import displacementImage from '../../images/dmaps/2048x2048/ripple.jpg'
@@ -120,7 +117,7 @@ class Slider extends Component {
     const ticker = new PIXI.ticker.Ticker()
     ticker.autoStart = true
 
-    ticker.add(function(delta) {
+    ticker.add(function (delta) {
       displacementSprite.x += 10 * delta
       displacementSprite.y += 3
 
@@ -130,7 +127,7 @@ class Slider extends Component {
     //  INTERACTIONS
     /// ---------------------------
     slidesContainer.interactive = true
-    const mouseEventHandler = function(mouseData) {
+    const mouseEventHandler = function (mouseData) {
       const mouseX = mouseData.data.global.x / 40
       console.log(mouseX / 100)
       const mouseY = mouseData.data.global.y / 40
@@ -168,37 +165,33 @@ class Slider extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.post.title !== this.props.post.title) {
       this.postTween.play()
-      //console.log(prevProps.post.title);
-      //console.log(actualTitle);
     }
   }
 
   render() {
     const { index, title } = this.props.post
-    //const circleValue = this.props.post.index * (100 / this.props.post.length)
-    //console.log(circleValue)
     return (
       <div>
-        <div>
-          <h3 className="category" ref={h3 => (this.postCategory = h3)}>
-            [ UI, Web Design ]
+
+        <h3 className="category" ref={h3 => (this.postCategory = h3)}>
+          [ UI, Web Design ]
           </h3>
-          <Link to="/page-2/" className="inner_h2">
-            <h2 className="title" ref={h2 => (this.postTitle = h2)}>
-              {title}
-            </h2>
-          </Link>
-          <div
-            className="num random"
-            ref={div => {
-              this.postNumber = div
-            }}
-          >
-            <span className="slash">/ </span>
-            <span className="num_project">0{index + 1}</span>
-            <span className="work"> [ work ]</span>
-          </div>
+        <Link to="/page-2/" className="inner_h2">
+          <h2 className="title" ref={h2 => (this.postTitle = h2)}>
+            {title}
+          </h2>
+        </Link>
+        <div
+          className="num random"
+          ref={div => {
+            this.postNumber = div
+          }}
+        >
+          <span className="slash">/ </span>
+          <span className="num_project">0{index + 1}</span>
+          <span className="work"> [ work ]</span>
         </div>
+
 
         <div ref={div => (this.postImage = div)}>
           {/* <img src={cover.resize.src} alt={title} /> */}

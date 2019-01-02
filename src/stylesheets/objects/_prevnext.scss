@@ -11,7 +11,7 @@
   position: relative;
   display: inline-block;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: opacity 0.5s;
   &:hover {
     opacity: 1;
   }
@@ -23,7 +23,7 @@
   display: inline-block;
   cursor: pointer;
   transform: rotate(180deg);
-  transition: all 0.3s;
+  transition: opacity 0.5s;
   &:hover {
     opacity: 1;
   }
