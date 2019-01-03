@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
 import { graphql } from 'gatsby'
-import { Link } from 'gatsby'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 
 import Slider from '../components/Slider'
+import Columnone from '../components/Columnone'
 import Layout from '../components/layout'
 import SVGArrowPrev from '../images/arrow-prev.svg'
 import SVGArrowNext from '../images/arrow-next.svg'
-import firstCircle from '../images/circle.svg'
 
 class IndexPage extends Component {
   constructor(props) {
@@ -69,65 +68,10 @@ class IndexPage extends Component {
 
   render() {
     const { post, posts } = this.state
-    const radius = 30
-    const postIndex = this.state.post.index + 1
-    const circumference = 2 * Math.PI * radius
-    const postLength = posts.length
-    const circleValue =
-      2 * Math.PI * radius - (circumference * postIndex) / postLength
-    const dashStyle = {
-      '--dashActive': circleValue,
-    }
     return (
       <Layout>
         <section className="inner_col">
-          <div className="col1">
-            {/* <img src={firstCircle} alt="" /> */}
-            <svg
-              width="62px"
-              height="62px"
-              viewBox="-1 -1 62 62"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xlinkHref="http://www.w3.org/1999/xlink"
-            >
-              <circle
-                strokeWidth="2"
-                fill="none"
-                stroke="#FFFFFF"
-                opacity="0.5"
-                cx="30"
-                cy="30"
-                r="30"
-              />
-            </svg>
-            <svg
-              id="cercle_blanc"
-              width="62px"
-              height="62px"
-              viewBox="-1 -1 62 62"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              xlinkHref="http://www.w3.org/1999/xlink"
-              style={dashStyle}
-            >
-              <circle
-                id="Oval"
-                strokeWidth="2"
-                fill="none"
-                stroke="#FFFFFF"
-                opacity="1"
-                cx="30"
-                cy="30"
-                r="30"
-              />
-            </svg>
-            <div className="random">
-              <Link to="/">View Project</Link>
-              <span className="year">2018</span>
-            </div>
-          </div>
-
+          <Columnone posts={posts} post={post} />
           <div className="col2">
             {/* {posts.map(({ node: post }) => (
                   <Slider key={post.id} post={post} />
@@ -149,6 +93,7 @@ class IndexPage extends Component {
               >
                 <img src={SVGArrowNext} alt="" />
               </button>
+              <Columnone posts={posts} post={post} />
             </div>
           </div>
         </section>
