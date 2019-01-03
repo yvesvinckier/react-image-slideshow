@@ -1,0 +1,35 @@
+.col1 {
+  padding: calc(40vh - 35px) 0 0 26%;
+  display: inline-block;
+  vertical-align: top;
+  line-height: 0;
+  flex: 0 1 44%;
+  //   @include bp(large) {
+  //     padding: calc(40vh - 50px + 1.44vw) 0 0 26%;
+  //   }
+}
+.col1 svg {
+  display: block;
+  --dashActive: 158.333;
+  transition: all 2s linear;
+}
+#cercle_blanc {
+  stroke-dashoffset: var(--dashActive);
+  stroke-dasharray: 190;
+  position: absolute;
+  top: calc(40vh - 35px);
+  stroke-linecap: round;
+}
+.random {
+  font-weight: 400;
+  font-size: 13px;
+  margin-top: 132px;
+  display: inline-block;
+  margin-left: -12px;
+}
+.year {
+  font-size: 12px;
+  display: block;
+  text-align: right;
+  margin-top: 35px;
+}

@@ -73,7 +73,8 @@ class IndexPage extends Component {
     const postIndex = this.state.post.index + 1
     const circumference = 2 * Math.PI * radius
     const postLength = posts.length
-    const circleValue = 2 * Math.PI * radius - (circumference * postIndex) / postLength
+    const circleValue =
+      2 * Math.PI * radius - (circumference * postIndex) / postLength
     const dashStyle = {
       '--dashActive': circleValue,
     }
@@ -81,12 +82,30 @@ class IndexPage extends Component {
       <Layout>
         <section className="inner_col">
           <div className="col1">
-            <img src={firstCircle} alt="" />
+            {/* <img src={firstCircle} alt="" /> */}
+            <svg
+              width="62px"
+              height="62px"
+              viewBox="-1 -1 62 62"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xlinkHref="http://www.w3.org/1999/xlink"
+            >
+              <circle
+                strokeWidth="2"
+                fill="none"
+                stroke="#FFFFFF"
+                opacity="0.5"
+                cx="30"
+                cy="30"
+                r="30"
+              />
+            </svg>
             <svg
               id="cercle_blanc"
               width="62px"
               height="62px"
-              viewBox="0 0 62 62"
+              viewBox="-1 -1 62 62"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
               xlinkHref="http://www.w3.org/1999/xlink"
@@ -103,9 +122,9 @@ class IndexPage extends Component {
                 r="30"
               />
             </svg>
-            <div className='random'>
-              <Link to='/'>View Project</Link>
-              <span className='year'>2018</span>
+            <div className="random">
+              <Link to="/">View Project</Link>
+              <span className="year">2018</span>
             </div>
           </div>
 
@@ -133,7 +152,7 @@ class IndexPage extends Component {
             </div>
           </div>
         </section>
-      </Layout >
+      </Layout>
     )
   }
 }
