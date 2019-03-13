@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import { TimelineLite, TweenMax, Power2 } from 'gsap/all'
-// import displacementImage from '../../images/dmaps/2048x2048/clouds.jpg'
-import displacementImage from '../../images/dmaps/2048x2048/ripple.jpg'
+// import displacementImage from '../images/dmaps/2048x2048/clouds.jpg'
+import displacementImage from '../images/dmaps/2048x2048/ripple.jpg'
 import * as PIXI from 'pixi.js'
 
 class Slider extends Component {
@@ -32,11 +32,13 @@ class Slider extends Component {
   componentDidMount() {
     //  PIXI VARIABLES
     /// ---------------------------
+    // eslint-disable-next-line new-cap
     const renderer = new PIXI.autoDetectRenderer(1920, 1080, {
       transparent: true,
     })
     const stage = new PIXI.Container()
     var slidesContainer = new PIXI.Container()
+    // eslint-disable-next-line new-cap
     const displacementSprite = new PIXI.Sprite.fromImage(displacementImage)
     const displacementFilter = new PIXI.filters.DisplacementFilter(
       displacementSprite
@@ -55,7 +57,7 @@ class Slider extends Component {
     // Enable Interactions
     stage.interactive = true
 
-    //console.log(renderer.view.style);
+    // console.log(renderer.view.style);
 
     // Fit renderer to the screen
     if (this.state.fullScreen === true) {
@@ -117,7 +119,7 @@ class Slider extends Component {
     const ticker = new PIXI.ticker.Ticker()
     ticker.autoStart = true
 
-    ticker.add(function (delta) {
+    ticker.add(function(delta) {
       displacementSprite.x += 10 * delta
       displacementSprite.y += 3
 
@@ -127,7 +129,7 @@ class Slider extends Component {
     //  INTERACTIONS
     /// ---------------------------
     slidesContainer.interactive = true
-    const mouseEventHandler = function (mouseData) {
+    const mouseEventHandler = function(mouseData) {
       const mouseX = mouseData.data.global.x / 40
       console.log(mouseX / 100)
       const mouseY = mouseData.data.global.y / 40
@@ -172,10 +174,9 @@ class Slider extends Component {
     const { index, title } = this.props.post
     return (
       <div>
-
         <h3 className="category" ref={h3 => (this.postCategory = h3)}>
           [ UI, Web Design ]
-          </h3>
+        </h3>
         <Link to="/page-2/" className="inner_h2">
           <h2 className="title" ref={h2 => (this.postTitle = h2)}>
             {title}
@@ -191,7 +192,6 @@ class Slider extends Component {
           <span className="num_project">0{index + 1}</span>
           <span className="work"> [ work ]</span>
         </div>
-
 
         <div ref={div => (this.postImage = div)}>
           {/* <img src={cover.resize.src} alt={title} /> */}

@@ -3,8 +3,9 @@ import { graphql } from 'gatsby'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 
+import WhiteHeader from '../components/WhiteHeader'
 import Slider from '../components/Slider'
-import Columnone from '../components/Columnone'
+import Columnone from '../components/ColumnOne'
 import Layout from '../components/layout'
 import SVGArrowPrev from '../images/arrow-prev.svg'
 import SVGArrowNext from '../images/arrow-next.svg'
@@ -70,6 +71,7 @@ class IndexPage extends Component {
     const { post, posts } = this.state
     return (
       <Layout>
+        <WhiteHeader />
         <section className="inner_col">
           <Columnone posts={posts} post={post} />
           <div className="col2">
