@@ -2,13 +2,65 @@ import React, { Component } from 'react'
 import { graphql } from 'gatsby'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
+import styled from 'styled-components'
 
 import WhiteHeader from '../components/WhiteHeader'
 import Slider from '../components/Slider'
 import Columnone from '../components/ColumnOne'
 import Layout from '../components/layout'
+
 import SVGArrowPrev from '../images/arrow-prev.svg'
 import SVGArrowNext from '../images/arrow-next.svg'
+
+const InnerCol = styled.section`
+  color: #fff;
+  font-size: 0;
+  display: flex;
+`
+const ColTwo = styled.div`
+  position: relative;
+  padding: calc(40vh - 70px) 14vw 0 0;
+  display: inline-block;
+  flex: 0 1 56%;
+  height: 100vh;
+  vertical-align: top;
+`
+const PrevNext = styled.div`
+  position: absolute;
+  bottom: calc(7vw - 17px);
+  left: -17px;
+  line-height: 0;
+  font-size: 0;
+  .to_prev {
+    opacity: 0.44;
+    padding: 17px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    transition: opacity 0.5s;
+    &:hover {
+      opacity: 1;
+    }
+    svg {
+      pointer-events: none;
+    }
+  }
+  .to_next {
+    opacity: 0.44;
+    padding: 17px;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    transform: rotate(180deg);
+    transition: opacity 0.5s;
+    &:hover {
+      opacity: 1;
+    }
+    svg {
+      pointer-events: none;
+    }
+  }
+`
 
 class IndexPage extends Component {
   constructor(props) {
@@ -72,15 +124,15 @@ class IndexPage extends Component {
     return (
       <Layout>
         <WhiteHeader />
-        <section className="inner_col">
+        <InnerCol>
           <Columnone posts={posts} post={post} />
-          <div className="col2">
+          <ColTwo>
             {/* {posts.map(({ node: post }) => (
                   <Slider key={post.id} post={post} />
                 ))} */}
 
             <Slider key={post.id} post={post} />
-            <div className="prev_next">
+            <PrevNext>
               <button
                 className="to_prev"
                 onClick={() => this.prevPost()}
@@ -95,10 +147,10 @@ class IndexPage extends Component {
               >
                 <img src={SVGArrowNext} alt="" />
               </button>
-              <Columnone posts={posts} post={post} />
-            </div>
-          </div>
-        </section>
+              {/* <Columnone posts={posts} post={post} /> */}
+            </PrevNext>
+          </ColTwo>
+        </InnerCol>
       </Layout>
     )
   }

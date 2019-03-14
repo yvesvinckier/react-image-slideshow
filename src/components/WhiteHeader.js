@@ -97,7 +97,7 @@ const WhiteHeader = () => (
     </h2>
     <AllWorks>
       <span>
-        <Link to="/page-2">All Works</Link>
+        <Link to="/">All Works</Link>
       </span>
       <VerticalPlus />
       <HorizontalPlus />

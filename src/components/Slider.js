@@ -134,8 +134,8 @@ class Slider extends Component {
       console.log(mouseX / 100)
       const mouseY = mouseData.data.global.y / 40
       console.log(mouseY)
-      // TweenMax.to(displacementFilter.scale, 1, { x: "+=" + Math.sin(mouseX) * 100 + "", y: "+=" + Math.cos(mouseY) * 100 + "" });
-      // TweenMax.to(displacementFilter.scale, 1, { x: "+=" + Math.sin(mouseX) * 100 + "" });
+      // TweenMax.to(displacementFilter.scale, 1, { x: '+=' + Math.sin(mouseX) * 100 + '', y: '+=' + Math.cos(mouseY) * 100 + '' });
+      // TweenMax.to(displacementFilter.scale, 1, { x: '+=' + Math.sin(mouseX) * 100 + '' });
       TweenMax.to(displacementFilter.scale, 1, { x: '+=' + mouseX / 100 + '' })
     }
     slidesContainer.on('mousemove', mouseEventHandler)
@@ -177,7 +177,7 @@ class Slider extends Component {
         <h3 className="category" ref={h3 => (this.postCategory = h3)}>
           [ UI, Web Design ]
         </h3>
-        <Link to="/page-2/" className="inner_h2">
+        <Link to="/" className="inner_h2">
           <h2 className="title" ref={h2 => (this.postTitle = h2)}>
             {title}
           </h2>
