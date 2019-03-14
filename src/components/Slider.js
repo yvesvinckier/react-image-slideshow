@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
-import { TimelineLite, TweenMax, Power2 } from 'gsap/all'
+import { TimelineLite, TweenMax, Power2 } from 'gsap'
 // import displacementImage from '../images/dmaps/2048x2048/clouds.jpg'
 import displacementImage from '../images/dmaps/2048x2048/ripple.jpg'
 import * as PIXI from 'pixi.js'
