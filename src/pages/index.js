@@ -5,61 +5,15 @@ import throttle from 'lodash/throttle'
 import styled from 'styled-components'
 
 import WhiteHeader from '../components/WhiteHeader'
-import Slider from '../components/Slider'
-import Columnone from '../components/ColumnOne'
+import ColumnTwo from '../components/ColumnTwo'
+import ColumnOne from '../components/ColumnOne'
+import InnerCanvas from '../components/InnerCanvas'
 import Layout from '../components/layout'
-
-import SVGArrowPrev from '../images/arrow-prev.svg'
-import SVGArrowNext from '../images/arrow-next.svg'
 
 const InnerCol = styled.section`
   color: #fff;
   font-size: 0;
   display: flex;
-`
-const ColTwo = styled.div`
-  position: relative;
-  padding: calc(40vh - 70px) 14vw 0 0;
-  display: inline-block;
-  flex: 0 1 56%;
-  height: 100vh;
-  vertical-align: top;
-`
-const PrevNext = styled.div`
-  position: absolute;
-  bottom: calc(7vw - 17px);
-  left: -17px;
-  line-height: 0;
-  font-size: 0;
-  .to_prev {
-    opacity: 0.44;
-    padding: 17px;
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    transition: opacity 0.5s;
-    &:hover {
-      opacity: 1;
-    }
-    svg {
-      pointer-events: none;
-    }
-  }
-  .to_next {
-    opacity: 0.44;
-    padding: 17px;
-    position: relative;
-    display: inline-block;
-    cursor: pointer;
-    transform: rotate(180deg);
-    transition: opacity 0.5s;
-    &:hover {
-      opacity: 1;
-    }
-    svg {
-      pointer-events: none;
-    }
-  }
 `
 
 class IndexPage extends Component {
@@ -104,53 +58,36 @@ class IndexPage extends Component {
     { leading: true, trailing: false }
   )
 
-  nextPost = () => {
-    const newIndex = this.state.post.index + 1
-    console.log(newIndex)
-    this.setState({
-      post: this.props.data.allContentfulGallery.edges[newIndex].node,
-    })
-  }
-
-  prevPost = () => {
-    const newIndex = this.state.post.index - 1
-    this.setState({
-      post: this.props.data.allContentfulGallery.edges[newIndex].node,
-    })
-  }
-
   render() {
     const { post, posts } = this.state
+    const nextPost = () => {
+      const newIndex = this.state.post.index + 1
+      console.log(newIndex)
+      this.setState({
+        post: this.props.data.allContentfulGallery.edges[newIndex].node,
+      })
+    }
+
+    const prevPost = () => {
+      const newIndex = this.state.post.index - 1
+      this.setState({
+        post: this.props.data.allContentfulGallery.edges[newIndex].node,
+      })
+    }
     return (
       <Layout>
         <WhiteHeader />
         <InnerCol>
-          <Columnone posts={posts} post={post} />
-          <ColTwo>
-            {/* {posts.map(({ node: post }) => (
-                  <Slider key={post.id} post={post} />
-                ))} */}
-
-            <Slider key={post.id} post={post} />
-            <PrevNext>
-              <button
-                className="to_prev"
-                onClick={() => this.prevPost()}
-                disabled={post.index === 0}
-              >
-                <img src={SVGArrowPrev} alt="" />
-              </button>
-              <button
-                className="to_next"
-                onClick={() => this.nextPost()}
-                disabled={post.index === posts.length - 1}
-              >
-                <img src={SVGArrowNext} alt="" />
-              </button>
-              {/* <Columnone posts={posts} post={post} /> */}
-            </PrevNext>
-          </ColTwo>
+          <ColumnOne posts={posts} post={post} />
+          <ColumnTwo
+            key={post.id}
+            post={post}
+            posts={posts}
+            nextPost={nextPost}
+            prevPost={prevPost}
+          />
         </InnerCol>
+        <InnerCanvas post={post} />
       </Layout>
     )
   }

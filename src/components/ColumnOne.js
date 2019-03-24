@@ -15,7 +15,6 @@ class Columnone extends Component {
     }
     return (
       <div className="col1">
-        {/* <img src={firstCircle} alt="" /> */}
         <svg
           width="62px"
           height="62px"
