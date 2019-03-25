@@ -14,6 +14,26 @@ const ColTwo = styled.div`
   flex: 0 1 56%;
   height: 100vh;
   vertical-align: top;
+  .inner_h2 {
+    position: absolute;
+    margin: 20px 0 0 -3px;
+    color: #fff;
+    h2 {
+      font-weight: 500;
+      font-size: 100px;
+      line-height: 100px;
+      @media screen and (min-width: ${props => props.theme.responsive.small}) {
+        font-size: 10vw;
+        line-height: 8vw;
+      }
+    }
+  }
+`
+const Category = styled.h3`
+  font-weight: 500;
+  font-size: 14px;
+  position: absolute;
+  top: calc(40vh - 96px);
 `
 
 const PrevNext = styled.div`
@@ -50,6 +70,26 @@ const PrevNext = styled.div`
     svg {
       pointer-events: none;
     }
+  }
+`
+
+const Num = styled.div`
+  font-weight: 800;
+  font-size: 15px;
+  position: absolute;
+  bottom: 13vw;
+  left: 24vw;
+  .slash {
+    transform: scaleY(0.8) translateY(-1px);
+    display: inline-block;
+    margin-right: 2px;
+  }
+  .work {
+    font-weight: 400;
+    font-size: 9px;
+    margin-left: 10px;
+    transform: translateY(-2px);
+    display: inline-block;
   }
 `
 
@@ -104,25 +144,14 @@ class Slider extends Component {
 
     return (
       <ColTwo>
-        <h3 className="category" ref={h3 => (this.postCategory = h3)}>
+        <Category ref={h3 => (this.postCategory = h3)}>
           [ UI, Web Design ]
-        </h3>
+        </Category>
         <Link to="/" className="inner_h2">
           <h2 className="title" ref={h2 => (this.postTitle = h2)}>
             {title}
           </h2>
         </Link>
-        <div
-          className="num random"
-          ref={div => {
-            this.postNumber = div
-          }}
-        >
-          <span className="slash">/ </span>
-          <span className="num_project">0{index + 1}</span>
-          <span className="work"> [ work ]</span>
-        </div>
-
         <PrevNext>
           <button
             className="to_prev"
@@ -139,6 +168,15 @@ class Slider extends Component {
             <img src={SVGArrowNext} alt="" />
           </button>
         </PrevNext>
+        <Num
+          ref={div => {
+            this.postNumber = div
+          }}
+        >
+          <span className="slash">/ </span>
+          <span className="num_project">0{index + 1}</span>
+          <span className="work"> [ work ]</span>
+        </Num>
       </ColTwo>
     )
   }

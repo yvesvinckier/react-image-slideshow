@@ -1,5 +1,41 @@
 import React, { Component } from 'react'
 import { Link } from 'gatsby'
+import styled from 'styled-components'
+
+const ColOne = styled.div`
+  padding: calc(40vh - 35px) 0 0 26%;
+  display: inline-block;
+  vertical-align: top;
+  line-height: 0;
+  flex: 0 1 44%;
+  svg {
+    display: block;
+    transition: all 2s linear;
+
+    --dashActive: 158.333;
+  }
+  #cercle_blanc {
+    stroke-dashoffset: var(--dashActive);
+    stroke-dasharray: 190;
+    position: absolute;
+    top: calc(40vh - 35px);
+    stroke-linecap: round;
+  }
+`
+
+const Random = styled.div`
+  font-weight: 400;
+  font-size: 13px;
+  margin-top: 136px;
+  display: inline-block;
+  margin-left: -12px;
+  & span {
+    font-size: 12px;
+    display: block;
+    text-align: right;
+    margin-top: 35px;
+  }
+`
 
 class Columnone extends Component {
   render() {
@@ -14,7 +50,7 @@ class Columnone extends Component {
       '--dashActive': circleValue,
     }
     return (
-      <div className="col1">
+      <ColOne>
         <svg
           width="62px"
           height="62px"
@@ -54,11 +90,11 @@ class Columnone extends Component {
             r="30"
           />
         </svg>
-        <div className="random">
+        <Random>
           <Link to="/">View Project</Link>
           <span className="year">2018</span>
-        </div>
-      </div>
+        </Random>
+      </ColOne>
     )
   }
 }
