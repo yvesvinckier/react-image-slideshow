@@ -5,6 +5,8 @@ import throttle from 'lodash/throttle'
 import styled from 'styled-components'
 
 import WhiteHeader from '../components/WhiteHeader'
+import ContactLink from '../components/ContactLink'
+import Social from '../components/Social'
 import ColumnTwo from '../components/ColumnTwo'
 import ColumnOne from '../components/ColumnOne'
 import InnerCanvas from '../components/InnerCanvas'
@@ -77,6 +79,8 @@ class IndexPage extends Component {
     return (
       <Layout>
         <WhiteHeader />
+        <ContactLink />
+        <Social />
         <InnerCol>
           <ColumnOne posts={posts} post={post} />
           <ColumnTwo
