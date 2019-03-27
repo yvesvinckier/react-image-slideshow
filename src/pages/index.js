@@ -11,6 +11,7 @@ import ColumnTwo from '../components/ColumnTwo'
 import ColumnOne from '../components/ColumnOne'
 import InnerCanvas from '../components/InnerCanvas'
 import Layout from '../components/layout'
+import NumLetter from '../components/NumLetter';
 
 const InnerCol = styled.section`
   color: #fff;
@@ -76,10 +77,12 @@ class IndexPage extends Component {
         post: this.props.data.allContentfulGallery.edges[newIndex].node,
       })
     }
+    const currentIndex = this.state.post.index
     return (
       <Layout>
         <WhiteHeader />
         <ContactLink />
+        <NumLetter currentIndex={currentIndex} posts={posts} post={post} />
         <Social />
         <InnerCol>
           <ColumnOne posts={posts} post={post} />
