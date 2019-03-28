@@ -11,7 +11,7 @@ import ColumnTwo from '../components/ColumnTwo'
 import ColumnOne from '../components/ColumnOne'
 import InnerCanvas from '../components/InnerCanvas'
 import Layout from '../components/layout'
-import NumLetter from '../components/NumLetter';
+import NumLetter from '../components/NumLetter'
 
 const InnerCol = styled.section`
   color: #fff;
