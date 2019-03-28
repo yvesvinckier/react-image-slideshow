@@ -58,20 +58,24 @@ const Letter = styled.div`
 `
 
 class NumLetter extends Component {
-  render() {
-    const { posts, currentPost } = this.props
 
-    return (
-      <>
-        <NumLetterContainer>
-          {posts.map(({ node: post }) => (
-            <li key={post.id} onClick={console.log('currentPost')}>
-              <Letter>{post.title.toLowerCase().slice(0, 1)}</Letter>
-            </li>
-          ))}
-        </NumLetterContainer>
-      </>
-    )
-  }
+    render() {
+
+        const { posts, post } = this.props
+        const currentIndex = post.index
+        console.log(currentIndex)
+
+        return (
+            <>
+                <NumLetterContainer>
+                    {posts.map(({ node: post }) => (
+                        <li key={post.id} >
+                            <Letter>{post.title.toLowerCase().slice(0, 1)}{post.index}</Letter>
+                        </li>
+                    ))}
+                </NumLetterContainer>
+            </>
+        )
+    }
 }
 export default NumLetter

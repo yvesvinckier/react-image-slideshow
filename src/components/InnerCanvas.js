@@ -32,8 +32,6 @@ class InnerCanvas extends Component {
     if (prevProps.post.title !== this.props.post.title) {
       this.ImageFadeIn()
     }
-    console.log(prevProps.post.cover.resize.src)
-    console.log(this.props.post.cover.resize.src)
   }
 
   render() {

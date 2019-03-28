@@ -65,7 +65,6 @@ class IndexPage extends Component {
     const { post, posts } = this.state
     const nextPost = () => {
       const newIndex = this.state.post.index + 1
-      console.log(newIndex)
       this.setState({
         post: this.props.data.allContentfulGallery.edges[newIndex].node,
       })
@@ -78,20 +77,11 @@ class IndexPage extends Component {
       })
     }
 
-    const currentPost = () => {
-      const postIndex = this.state.post.index
-      this.setState({
-        post: this.props.data.allContentfulGallery.edges[postIndex].node,
-      })
-    }
-    const currentIndex = this.state.post.index
     return (
       <Layout>
         <WhiteHeader />
         <ContactLink />
         <NumLetter
-          currentIndex={currentIndex}
-          currentPost={currentPost}
           posts={posts}
           post={post}
         />
