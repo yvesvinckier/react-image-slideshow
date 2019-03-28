@@ -77,12 +77,24 @@ class IndexPage extends Component {
         post: this.props.data.allContentfulGallery.edges[newIndex].node,
       })
     }
+
+    const currentPost = () => {
+      const postIndex = this.state.post.index
+      this.setState({
+        post: this.props.data.allContentfulGallery.edges[postIndex].node,
+      })
+    }
     const currentIndex = this.state.post.index
     return (
       <Layout>
         <WhiteHeader />
         <ContactLink />
-        <NumLetter currentIndex={currentIndex} posts={posts} post={post} />
+        <NumLetter
+          currentIndex={currentIndex}
+          currentPost={currentPost}
+          posts={posts}
+          post={post}
+        />
         <Social />
         <InnerCol>
           <ColumnOne posts={posts} post={post} />
