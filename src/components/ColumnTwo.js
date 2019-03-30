@@ -139,7 +139,7 @@ class Slider extends Component {
   }
 
   render() {
-    const { post, posts, nextPost, prevPost } = this.props
+    const { goToNextSlide, goToPrevSlide } = this.props
     const { index, title } = this.props.post
 
     return (
@@ -153,18 +153,10 @@ class Slider extends Component {
           </h2>
         </Link>
         <PrevNext>
-          <button
-            className="to_prev"
-            onClick={prevPost}
-            disabled={post.index === 0}
-          >
+          <button className="to_prev" onClick={goToPrevSlide}>
             <img src={SVGArrowPrev} alt="" />
           </button>
-          <button
-            className="to_next"
-            onClick={nextPost}
-            disabled={post.index === posts.length - 1}
-          >
+          <button className="to_next" onClick={goToNextSlide}>
             <img src={SVGArrowNext} alt="" />
           </button>
         </PrevNext>

@@ -37,15 +37,15 @@ class IndexPage extends Component {
   }
 
   handleMouseWheel({ deltaY }) {
-    const currentIndex = this.state.post.index
-    const newIndex = deltaY > 0 ? currentIndex + 1 : currentIndex - 1
-    this.handleProjectSwitch(newIndex)
+    const index = this.state.post.index
+    const activeIndex = deltaY > 0 ? index + 1 : index - 1
+    this.handleProjectSwitch(activeIndex)
   }
 
   handleProjectSwitch = debounce(
-    newIndex => {
+    activeIndex => {
       const projectsDataCount = this.state.posts.length - 1
-      let index = newIndex
+      let index = activeIndex
 
       if (index > projectsDataCount) {
         index = 0
@@ -63,19 +63,45 @@ class IndexPage extends Component {
 
   render() {
     const { post, posts } = this.state
-    const nextPost = () => {
-      const newIndex = this.state.post.index + 1
+    const goToNextSlide = e => {
+      e.preventDefault()
+
+      const projectsDataCount = this.state.posts.length - 1
+      const activeIndex = this.state.post.index + 1
+      let index = activeIndex
+      if (index > projectsDataCount) {
+        index = 0
+      } else if (index < 0) {
+        index = projectsDataCount
+      }
       this.setState({
-        post: this.props.data.allContentfulGallery.edges[newIndex].node,
+        post: this.props.data.allContentfulGallery.edges[index].node,
       })
     }
 
-    const prevPost = () => {
-      const newIndex = this.state.post.index - 1
+    const goToPrevSlide = e => {
+      e.preventDefault()
+
+      const projectsDataCount = this.state.posts.length - 1
+      const activeIndex = this.state.post.index - 1
+      let index = activeIndex
+      if (index > projectsDataCount) {
+        index = 0
+      } else if (index < 0) {
+        index = projectsDataCount
+      }
       this.setState({
-        post: this.props.data.allContentfulGallery.edges[newIndex].node,
+        post: this.props.data.allContentfulGallery.edges[index].node,
       })
     }
+
+    const goToSlide = index => {
+      this.setState({
+        post: this.props.data.allContentfulGallery.edges[index].node,
+      })
+    }
+
+    let index = this.state.post.index
 
     return (
       <Layout>
@@ -84,6 +110,8 @@ class IndexPage extends Component {
         <NumLetter
           posts={posts}
           post={post}
+          goToSlide={goToSlide}
+          index={index}
         />
         <Social />
         <InnerCol>
@@ -92,8 +120,8 @@ class IndexPage extends Component {
             key={post.id}
             post={post}
             posts={posts}
-            nextPost={nextPost}
-            prevPost={prevPost}
+            goToNextSlide={goToNextSlide}
+            goToPrevSlide={goToPrevSlide}
           />
         </InnerCol>
         <InnerCanvas post={post} />
