@@ -25,7 +25,7 @@ const NumLetterContainer = styled.ul`
       position: absolute;
       bottom: 6px;
       left: 9px;
-      transition: opacity 0.2s;
+      transition: opacity 0.4s;
     }
     &::after {
       content: '';
@@ -46,20 +46,26 @@ const NumLetterContainer = styled.ul`
       &::after {
         transform: scaleY(1);
       }
+      &::before {
+        opacity: 0;
+      }
     }
   }
-`
-
-const Letter = styled.div`
-  font-weight: 600;
-  font-size: 15px;
-  position: absolute;
-  bottom: -3px;
-  width: 100%;
-  text-align: center;
-  transform: rotate(-90deg) translateY(-50%);
-  height: 22px;
-  padding-top: 3px;
+  .letter {
+    font-weight: 600;
+    font-size: 15px;
+    position: absolute;
+    bottom: -3px;
+    width: 100%;
+    text-align: center;
+    transform: rotate(-90deg) translateY(0);
+    height: 22px;
+    padding-top: 3px;
+    transition: 0.2s ease-out 0.4s;
+    &--active {
+      transform: rotate(-90deg) translateY(-100%);
+    }
+  }
 `
 
 class NumLetter extends Component {
@@ -81,7 +87,13 @@ class NumLetter extends Component {
                 goToSlide(post.index)
               }}
             >
-              <Letter>{post.title.toLowerCase().slice(0, 1)}</Letter>
+              <div
+                className={
+                  post.index === index ? 'letter' : 'letter letter--active'
+                }
+              >
+                {post.title.toLowerCase().slice(0, 1)}
+              </div>
             </li>
           ))}
         </NumLetterContainer>
