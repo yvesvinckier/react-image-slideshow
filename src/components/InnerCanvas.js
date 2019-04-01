@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
-import { Power2, TweenLite } from 'gsap'
+import { Power2, TweenMax } from 'gsap'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
 import * as PIXI from 'pixi.js'
+import displacementImage from '../images/dmaps/2048x2048/ripple.jpg'
 
 const InnerImage = styled.div`
   position: fixed;
@@ -11,10 +13,9 @@ const InnerImage = styled.div`
   width: 100%;
   z-index: -1;
   & canvas {
-    position: fixed;
+    position: absolute;
     pointer-events: none;
     z-index: -1;
-    opacity: 1;
     top: 0;
     left: 0;
   }
@@ -24,45 +25,101 @@ class InnerCanvas extends Component {
   constructor(props) {
     super(props)
     this.postImage = null
+    this.state = {
+      playground: null,
+      fullScreen: true,
+      displaceAutoFit: false,
+      displacementCenter: true,
+    }
   }
 
   ImageFadeIn() {
-    TweenLite.from(this.postImage, 3, { opacity: 0, ease: Power2.easeOut })
+    TweenMax.from(this.postImage, 1, { opacity: 0, ease: Power2.easeOut })
   }
 
   componentDidMount() {
     this.ImageFadeIn()
 
-    // 1. Create a Pixi renderer and define size and a background color
-    var renderer = PIXI.autoDetectRenderer(
-      window.innerWidth,
-      window.innerHeight,
-      {
-        // create transparent canvas
-        transparent: !0,
-      }
+    /// ---------------------------
+    //  PIXI VARIABLES
+    /// ---------------------------
+    // eslint-disable-next-line new-cap
+    const renderer = new PIXI.autoDetectRenderer(1920, 1080, {
+      transparent: true,
+    })
+    const stage = new PIXI.Container()
+    var slidesContainer = new PIXI.Container()
+    // eslint-disable-next-line new-cap
+    const displacementSprite = new PIXI.Sprite.fromImage(displacementImage)
+    const displacementFilter = new PIXI.filters.DisplacementFilter(
+      displacementSprite
     )
 
-    // 2. Append canvas element to the body
+    /// ---------------------------
+    //  INITIALISE PIXI
+    /// ---------------------------
+
+    // Add canvas to the postImage container
     this.postImage.appendChild(renderer.view)
 
-    // 3. Create a container that will hold your scene
-    var stage = new PIXI.Container()
+    // Add child container to the main container
+    stage.addChild(slidesContainer)
 
-    // create a PIXI sprite from an image path
-    const { cover } = this.props.post
-    var hawaii = PIXI.Sprite.fromImage(cover.resize.src)
-    console.log(hawaii)
-    hawaii.anchor.x = 0.5
-    hawaii.anchor.y = 0.5
-    hawaii.position.x = 200
-    hawaii.position.y = 200
+    // Enable Interactions
+    stage.interactive = true
 
-    stage.addChild(hawaii)
+    // console.log(renderer.view.style);
 
-    /* TUTORIAL DisplacementFilter CODE GOES HERE ------ */
+    // Fit renderer to the screen
+    if (this.state.fullScreen === true) {
+      renderer.view.style.objectFit = 'cover'
+      renderer.view.style.width = '100%'
+      renderer.view.style.height = '100%'
+      renderer.view.style.top = '50%'
+      renderer.view.style.left = '50%'
+      renderer.view.style.webkitTransform = 'translate( -50%, -50% ) scale(1.2)'
+      renderer.view.style.transform = 'translate( -50%, -50% ) scale(1.2)'
+    } else {
+      renderer.view.style.maxWidth = '100%'
+      renderer.view.style.top = '50%'
+      renderer.view.style.left = '50%'
+      renderer.view.style.webkitTransform = 'translate( -50%, -50% )'
+      renderer.view.style.transform = 'translate( -50%, -50% )'
+    }
 
-    // add stage to the canvas
+    displacementSprite.texture.baseTexture.wrapMode = PIXI.WRAP_MODES.REPEAT
+
+    /// ---------------------------
+    //  LOAD IMAGES TO CANVAS
+    /// ---------------------------
+    const sprites = this.props.post.cover.resize.src
+
+    const texture = PIXI.Texture.fromImage(sprites)
+    const image = new PIXI.Sprite(texture)
+
+    slidesContainer.addChild(image)
+
+    // Set the filter to stage and set some default values for the animation
+    stage.filters = [displacementFilter]
+
+    displacementSprite.scale.x = 2
+    displacementSprite.scale.y = 2
+
+    // PIXI tries to fit the filter bounding box to the renderer so we optionally bypass
+    displacementFilter.autoFit = this.state.displaceAutoFit
+
+    stage.addChild(displacementSprite)
+    /// ---------------------------
+    //  CENTER DISPLACEMENT
+    /// ---------------------------
+    if (this.state.displacementCenter === true) {
+      // center the sprite's anchor point
+      displacementSprite.anchor.set(0.5)
+      // move the sprite to the center of the screen
+      displacementSprite.x = renderer.view.width / 2
+      displacementSprite.y = renderer.view.height / 2
+    }
+
     render()
 
     function render() {
@@ -79,12 +136,15 @@ class InnerCanvas extends Component {
   }
 
   render() {
-    const { title, cover } = this.props.post
+    // const { title, cover } = this.props.post
     return (
       <InnerImage ref={div => (this.postImage = div)}>
         {/* <img src={cover.resize.src} alt={title} /> */}
       </InnerImage>
     )
   }
+}
+InnerCanvas.propTypes = {
+  post: PropTypes.object.isRequired,
 }
 export default InnerCanvas
