@@ -3,13 +3,15 @@ import { graphql } from 'gatsby'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 import styled from 'styled-components'
+import { Stage } from 'react-pixi-fiber'
 
+import AnimatedCover from '../components/AnimatedCover'
 import WhiteHeader from '../components/WhiteHeader'
 import ContactLink from '../components/ContactLink'
 import Social from '../components/Social'
 import ColumnTwo from '../components/ColumnTwo'
 import ColumnOne from '../components/ColumnOne'
-import InnerCanvas from '../components/InnerCanvas'
+// import InnerCanvas from '../components/InnerCanvas'
 import Layout from '../components/layout'
 import NumLetter from '../components/NumLetter'
 
@@ -18,6 +20,12 @@ const InnerCol = styled.section`
   font-size: 0;
   display: flex;
 `
+
+const height = 450
+const width = 600
+const OPTIONS = {
+  backgroundColor: 0x1099bb,
+}
 
 class IndexPage extends Component {
   constructor(props) {
@@ -124,7 +132,10 @@ class IndexPage extends Component {
             goToPrevSlide={goToPrevSlide}
           />
         </InnerCol>
-        <InnerCanvas post={post} />
+        {/* <InnerCanvas post={post} /> */}
+        <Stage options={OPTIONS} width={width} height={height}>
+          <AnimatedCover post={post} x={width / 2} y={height / 2} />
+        </Stage>
       </Layout>
     )
   }
