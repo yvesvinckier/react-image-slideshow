@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
+    "@pixi/filter-displacement": "^5.0.0-rc.3",
     "babel-plugin-styled-components": "^1.10.0",
     "dotenv": "^6.2.0",
     "gatsby": "^2.3.3",

@@ -21,10 +21,10 @@ const InnerCol = styled.section`
   display: flex;
 `
 
-const height = 450
-const width = 600
+const height = window.innerHeight
+const width = window.innerWidth
 const OPTIONS = {
-  backgroundColor: 0x1099bb,
+  backgroundColor: 0x000000,
 }
 
 class IndexPage extends Component {

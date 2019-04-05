@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { withApp } from 'react-pixi-fiber'
-import CoverImage from './CoverImage'
+import { withApp, Sprite } from 'react-pixi-fiber'
+import * as PIXI from 'pixi.js'
 
-// http://pixijs.io/examples/#/basics/basic.js
-class RotatingBunny extends Component {
-  state = {
-    rotation: 0,
+// import CoverImage from './CoverImage'
+
+const centerAnchor = new PIXI.Point(0.5, 0.5)
+
+class AnimatedCover extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      rotation: 0,
+    }
   }
 
   componentDidMount() {
@@ -28,14 +34,22 @@ class RotatingBunny extends Component {
   }
 
   render() {
-    const post = this.props.post
+    // const post = this.props.post
+    const CoverImage = this.props.post.cover.resize.src
+    const bgTexture = PIXI.Texture.fromImage(CoverImage)
     return (
-      <CoverImage post={post} {...this.props} rotation={this.state.rotation} />
+      // <CoverImage post={post} {...this.props} rotation={this.state.rotation} />
+      <Sprite
+        rotation={this.state.rotation}
+        anchor={centerAnchor}
+        texture={bgTexture}
+        {...this.props}
+      />
     )
   }
 }
-RotatingBunny.contextTypes = {
+AnimatedCover.contextTypes = {
   app: PropTypes.object,
 }
 
-export default withApp(RotatingBunny)
+export default withApp(AnimatedCover)

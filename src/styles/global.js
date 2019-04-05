@@ -44,6 +44,15 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  /* Canvas for PIXI */
+  canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
   /* Site Specific Globals */
   body {
     background: #121212;
