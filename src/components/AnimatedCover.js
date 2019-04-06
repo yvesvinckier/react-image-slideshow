@@ -29,7 +29,8 @@ class AnimatedCover extends Component {
     // creates frame-independent tranformation
     this.setState(state => ({
       ...state,
-      rotation: state.rotation + 0.1 * delta,
+      // rotation: state.rotation + 0.1 * delta,
+      rotation: state.rotation,
     }))
   }
 

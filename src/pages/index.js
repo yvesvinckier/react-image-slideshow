@@ -3,7 +3,9 @@ import { graphql } from 'gatsby'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 import styled from 'styled-components'
-import { Stage } from 'react-pixi-fiber'
+import { Stage, Sprite } from 'react-pixi-fiber'
+import * as PIXI from 'pixi.js'
+import displacementImage from '../images/dmaps/2048x2048/crystalize.jpg'
 
 import AnimatedCover from '../components/AnimatedCover'
 import WhiteHeader from '../components/WhiteHeader'
@@ -14,6 +16,10 @@ import ColumnOne from '../components/ColumnOne'
 // import InnerCanvas from '../components/InnerCanvas'
 import Layout from '../components/layout'
 import NumLetter from '../components/NumLetter'
+
+const displacementTexture = PIXI.Texture.fromImage(displacementImage)
+
+const centerAnchor = new PIXI.Point(0.5, 0.5)
 
 const InnerCol = styled.section`
   color: #fff;
@@ -33,7 +39,10 @@ class IndexPage extends Component {
     this.state = {
       posts: this.props.data.allContentfulGallery.edges,
       post: this.props.data.allContentfulGallery.edges[0].node,
+      filters: [],
     }
+    this.displacementSprite = React.createRef()
+    this.overlaySprite = React.createRef()
   }
   componentDidMount() {
     this.mouseWheelListener = throttle(e => this.handleMouseWheel(e), 2000, {
@@ -42,6 +51,12 @@ class IndexPage extends Component {
     })
 
     window.addEventListener('wheel', this.mouseWheelListener, { passive: true })
+
+    this.setState({
+      filters: [
+        new PIXI.filters.DisplacementFilter(this.displacementSprite.current),
+      ],
+    })
   }
 
   handleMouseWheel({ deltaY }) {
@@ -133,8 +148,18 @@ class IndexPage extends Component {
           />
         </InnerCol>
         {/* <InnerCanvas post={post} /> */}
-        <Stage options={OPTIONS} width={width} height={height}>
+        <Stage
+          options={OPTIONS}
+          width={width}
+          height={height}
+          filters={this.state.filters}
+        >
           <AnimatedCover post={post} x={width / 2} y={height / 2} />
+          <Sprite
+            ref={this.displacementSprite}
+            texture={displacementTexture}
+            anchor={centerAnchor}
+          />
         </Stage>
       </Layout>
     )
