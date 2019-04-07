@@ -3,9 +3,10 @@ import { graphql } from 'gatsby'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 import styled from 'styled-components'
-import { Stage, Sprite } from 'react-pixi-fiber'
+import { Stage, Sprite, TilingSprite } from 'react-pixi-fiber'
 import * as PIXI from 'pixi.js'
-import displacementImage from '../images/dmaps/2048x2048/crystalize.jpg'
+import displacementImage from '../images/dmaps/2048x2048/ripple.jpg'
+
 
 import AnimatedCover from '../components/AnimatedCover'
 import WhiteHeader from '../components/WhiteHeader'
@@ -19,7 +20,9 @@ import NumLetter from '../components/NumLetter'
 
 const displacementTexture = PIXI.Texture.fromImage(displacementImage)
 
-const centerAnchor = new PIXI.Point(0.5, 0.5)
+
+
+// const centerAnchor = new PIXI.Point(0.5, 0.5)
 
 const InnerCol = styled.section`
   color: #fff;
@@ -40,6 +43,7 @@ class IndexPage extends Component {
       posts: this.props.data.allContentfulGallery.edges,
       post: this.props.data.allContentfulGallery.edges[0].node,
       filters: [],
+      x: 0,
     }
     this.displacementSprite = React.createRef()
     this.overlaySprite = React.createRef()
@@ -57,6 +61,20 @@ class IndexPage extends Component {
         new PIXI.filters.DisplacementFilter(this.displacementSprite.current),
       ],
     })
+  }
+
+  _onMouseMove = e => {
+    const width = window.innerWidth
+    const oX = (e.nativeEvent.offsetX / width) * 100
+
+    console.log(Math.floor(oX))
+    const updateDisplacementSpritePosition = this.displacementSprite.current.x += oX
+    // console.log(tilePo)
+    this.setState({
+      x: updateDisplacementSpritePosition
+    })
+
+
   }
 
   handleMouseWheel({ deltaY }) {
@@ -128,39 +146,44 @@ class IndexPage extends Component {
 
     return (
       <Layout>
-        <WhiteHeader />
-        <ContactLink />
-        <NumLetter
-          posts={posts}
-          post={post}
-          goToSlide={goToSlide}
-          index={index}
-        />
-        <Social />
-        <InnerCol>
-          <ColumnOne posts={posts} post={post} />
-          <ColumnTwo
-            key={post.id}
-            post={post}
+        <div onMouseMove={this._onMouseMove}>
+          <WhiteHeader />
+          <ContactLink />
+          <NumLetter
             posts={posts}
-            goToNextSlide={goToNextSlide}
-            goToPrevSlide={goToPrevSlide}
+            post={post}
+            goToSlide={goToSlide}
+            index={index}
           />
-        </InnerCol>
-        {/* <InnerCanvas post={post} /> */}
-        <Stage
-          options={OPTIONS}
-          width={width}
-          height={height}
-          filters={this.state.filters}
-        >
-          <AnimatedCover post={post} x={width / 2} y={height / 2} />
-          <Sprite
-            ref={this.displacementSprite}
-            texture={displacementTexture}
-            anchor={centerAnchor}
-          />
-        </Stage>
+          <Social />
+          <InnerCol>
+            <ColumnOne posts={posts} post={post} />
+            <ColumnTwo
+              key={post.id}
+              post={post}
+              posts={posts}
+              goToNextSlide={goToNextSlide}
+              goToPrevSlide={goToPrevSlide}
+            />
+          </InnerCol>
+          {/* <InnerCanvas post={post} /> */}
+          <Stage
+            options={OPTIONS}
+            width={width}
+            height={height}
+            filters={this.state.filters}
+          >
+            <AnimatedCover post={post} x={width / 2} y={height / 2} />
+            <TilingSprite
+              ref={this.overlaySprite}
+              texture={displacementTexture}
+            />
+            <Sprite
+              ref={this.displacementSprite}
+              texture={displacementTexture}
+            />
+          </Stage>
+        </div>
       </Layout>
     )
   }
