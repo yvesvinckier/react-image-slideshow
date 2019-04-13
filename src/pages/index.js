@@ -3,26 +3,19 @@ import { graphql } from 'gatsby'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 import styled from 'styled-components'
-import { Stage, Sprite, TilingSprite } from 'react-pixi-fiber'
+import { Stage, Sprite } from 'react-pixi-fiber'
 import * as PIXI from 'pixi.js'
-import displacementImage from '../images/dmaps/2048x2048/ripple.jpg'
+import displacementImage from '../images/dmaps/2048x2048/ripple_2.jpg'
 
-
-import AnimatedCover from '../components/AnimatedCover'
 import WhiteHeader from '../components/WhiteHeader'
 import ContactLink from '../components/ContactLink'
 import Social from '../components/Social'
 import ColumnTwo from '../components/ColumnTwo'
 import ColumnOne from '../components/ColumnOne'
-// import InnerCanvas from '../components/InnerCanvas'
 import Layout from '../components/layout'
 import NumLetter from '../components/NumLetter'
 
 const displacementTexture = PIXI.Texture.fromImage(displacementImage)
-
-
-
-// const centerAnchor = new PIXI.Point(0.5, 0.5)
 
 const InnerCol = styled.section`
   color: #fff;
@@ -33,7 +26,7 @@ const InnerCol = styled.section`
 const height = window.innerHeight
 const width = window.innerWidth
 const OPTIONS = {
-  backgroundColor: 0x000000,
+  backgroundColor: 0x1099bb,
 }
 
 class IndexPage extends Component {
@@ -44,6 +37,7 @@ class IndexPage extends Component {
       post: this.props.data.allContentfulGallery.edges[0].node,
       filters: [],
       x: 0,
+      y: 0,
     }
     this.displacementSprite = React.createRef()
     this.overlaySprite = React.createRef()
@@ -61,21 +55,36 @@ class IndexPage extends Component {
         new PIXI.filters.DisplacementFilter(this.displacementSprite.current),
       ],
     })
+    PIXI.ticker.shared.add(this.move, this)
   }
 
-  _onMouseMove = e => {
-    const width = window.innerWidth
-    const oX = (e.nativeEvent.offsetX / width) * 100
+  componentWillUnmount() {
+    PIXI.ticker.shared.remove(this.move, this)
+  }
 
-    console.log(Math.floor(oX))
-    const updateDisplacementSpritePosition = this.displacementSprite.current.x += oX
-    // console.log(tilePo)
+  move = delta => {
+    console.log((this.displacementSprite.current.x += 10 * delta))
+
+    const dispacementCurrentX = (this.displacementSprite.current.position.x += 2.14)
+    const dispacementCurrentY = (this.displacementSprite.current.position.y += 22.24)
     this.setState({
-      x: updateDisplacementSpritePosition
+      x: dispacementCurrentX,
+      y: dispacementCurrentY,
     })
-
-
   }
+
+  // _onMouseMove = e => {
+  //   const width = window.innerWidth
+  //   const oX = (e.nativeEvent.offsetX / width) * 100
+
+  //   console.log(Math.floor(oX))
+  //   const updateDisplacementSpritePosition = this.displacementSprite.current.x += oX
+  //   // console.log(tilePo)
+  //   this.setState({
+  //     x: updateDisplacementSpritePosition
+  //   })
+
+  // }
 
   handleMouseWheel({ deltaY }) {
     const index = this.state.post.index
@@ -143,6 +152,7 @@ class IndexPage extends Component {
     }
 
     let index = this.state.post.index
+    const bgTexture = PIXI.Texture.fromImage(post.cover.resize.src)
 
     return (
       <Layout>
@@ -166,21 +176,18 @@ class IndexPage extends Component {
               goToPrevSlide={goToPrevSlide}
             />
           </InnerCol>
-          {/* <InnerCanvas post={post} /> */}
           <Stage
             options={OPTIONS}
             width={width}
             height={height}
             filters={this.state.filters}
           >
-            <AnimatedCover post={post} x={width / 2} y={height / 2} />
-            <TilingSprite
-              ref={this.overlaySprite}
-              texture={displacementTexture}
-            />
+            <Sprite texture={bgTexture} />
             <Sprite
               ref={this.displacementSprite}
               texture={displacementTexture}
+              width={1920}
+              height={1920}
             />
           </Stage>
         </div>

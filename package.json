@@ -23,7 +23,10 @@
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
     "react-pixi-fiber": "^0.8.0",
-    "styled-components": "^4.2.0"
+    "react-spring": "^8.0.19",
+    "react-three-fiber": "^2.0.4",
+    "styled-components": "^4.2.0",
+    "three": "^0.103.0"
   },
   "keywords": [
     "gatsby"
