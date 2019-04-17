@@ -46,11 +46,9 @@ const GlobalStyle = createGlobalStyle`
 
   /* Canvas for PIXI */
   canvas {
-    display: block;
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
+  top: 0;
+  pointer-events: none;
   }
 
   /* Site Specific Globals */
