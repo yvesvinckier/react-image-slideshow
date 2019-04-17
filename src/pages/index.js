@@ -3,9 +3,9 @@ import { graphql } from 'gatsby'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 import styled from 'styled-components'
-import { Stage, Sprite } from 'react-pixi-fiber'
+import { Stage, Sprite, TilingSprite } from 'react-pixi-fiber'
 import * as PIXI from 'pixi.js'
-import displacementImage from '../images/dmaps/2048x2048/ripple_2.jpg'
+import displacementImage from '../images/dmaps/2048x2048/crystalize.jpg'
 
 import WhiteHeader from '../components/WhiteHeader'
 import ContactLink from '../components/ContactLink'
@@ -16,6 +16,9 @@ import Layout from '../components/layout'
 import NumLetter from '../components/NumLetter'
 
 const displacementTexture = PIXI.Texture.fromImage(displacementImage)
+const overlayTexture = PIXI.Texture.fromImage(
+  "http://pixijs.io/pixi-filters/tools/demo/images/overlay.png"
+);
 
 const InnerCol = styled.section`
   color: #fff;
@@ -36,8 +39,6 @@ class IndexPage extends Component {
       posts: this.props.data.allContentfulGallery.edges,
       post: this.props.data.allContentfulGallery.edges[0].node,
       filters: [],
-      x: 0,
-      y: 0,
     }
     this.displacementSprite = React.createRef()
     this.overlaySprite = React.createRef()
@@ -55,22 +56,16 @@ class IndexPage extends Component {
         new PIXI.filters.DisplacementFilter(this.displacementSprite.current),
       ],
     })
-    PIXI.ticker.shared.add(this.move, this)
+    PIXI.ticker.shared.add(this.move, this);
   }
 
   componentWillUnmount() {
-    PIXI.ticker.shared.remove(this.move, this)
+    PIXI.ticker.shared.remove(this.move, this);
   }
 
-  move = delta => {
-    console.log((this.displacementSprite.current.x += 10 * delta))
-
-    const dispacementCurrentX = (this.displacementSprite.current.position.x += 2.14)
-    const dispacementCurrentY = (this.displacementSprite.current.position.y += 22.24)
-    this.setState({
-      x: dispacementCurrentX,
-      y: dispacementCurrentY,
-    })
+  move() {
+    this.overlaySprite.current.tilePosition.x -= 1;
+    this.overlaySprite.current.tilePosition.y -= 1;
   }
 
   // _onMouseMove = e => {
@@ -186,8 +181,14 @@ class IndexPage extends Component {
             <Sprite
               ref={this.displacementSprite}
               texture={displacementTexture}
-              width={1920}
-              height={1920}
+              width={width}
+              height={height}
+            />
+            <TilingSprite
+              ref={this.overlaySprite}
+              texture={bgTexture}
+              width={width}
+              height={height}
             />
           </Stage>
         </div>
