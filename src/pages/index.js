@@ -5,7 +5,7 @@ import throttle from 'lodash/throttle'
 import styled from 'styled-components'
 import { Stage, Sprite, TilingSprite } from 'react-pixi-fiber'
 import * as PIXI from 'pixi.js'
-import displacementImage from '../images/dmaps/2048x2048/crystalize.jpg'
+import displacementImage from '../images/dmaps/gradient4.png'
 
 import WhiteHeader from '../components/WhiteHeader'
 import ContactLink from '../components/ContactLink'
@@ -16,9 +16,6 @@ import Layout from '../components/layout'
 import NumLetter from '../components/NumLetter'
 
 const displacementTexture = PIXI.Texture.fromImage(displacementImage)
-const overlayTexture = PIXI.Texture.fromImage(
-  "http://pixijs.io/pixi-filters/tools/demo/images/overlay.png"
-);
 
 const InnerCol = styled.section`
   color: #fff;
@@ -29,7 +26,7 @@ const InnerCol = styled.section`
 const height = window.innerHeight
 const width = window.innerWidth
 const OPTIONS = {
-  backgroundColor: 0x1099bb,
+  backgroundColor: 0x000000
 }
 
 class IndexPage extends Component {
@@ -39,6 +36,7 @@ class IndexPage extends Component {
       posts: this.props.data.allContentfulGallery.edges,
       post: this.props.data.allContentfulGallery.edges[0].node,
       filters: [],
+      x: 0,
     }
     this.displacementSprite = React.createRef()
     this.overlaySprite = React.createRef()
@@ -56,30 +54,29 @@ class IndexPage extends Component {
         new PIXI.filters.DisplacementFilter(this.displacementSprite.current),
       ],
     })
-    PIXI.ticker.shared.add(this.move, this);
+    // PIXI.ticker.shared.add(this.move, this);
   }
 
-  componentWillUnmount() {
-    PIXI.ticker.shared.remove(this.move, this);
-  }
-
-  move() {
-    this.overlaySprite.current.tilePosition.x -= 1;
-    this.overlaySprite.current.tilePosition.y -= 1;
-  }
-
-  // _onMouseMove = e => {
-  //   const width = window.innerWidth
-  //   const oX = (e.nativeEvent.offsetX / width) * 100
-
-  //   console.log(Math.floor(oX))
-  //   const updateDisplacementSpritePosition = this.displacementSprite.current.x += oX
-  //   // console.log(tilePo)
-  //   this.setState({
-  //     x: updateDisplacementSpritePosition
-  //   })
-
+  // componentWillUnmount() {
+  //   PIXI.ticker.shared.remove(this.move, this);
   // }
+
+  // move() {
+  //   this.displacementSprite.current.x += 1
+  //   this.displacementSprite.current.y += 1
+  // }
+
+  _onMouseMove = e => {
+    const width = window.innerWidth
+    const oX = (e.nativeEvent.offsetX / width) * 100
+
+    console.log(Math.floor(oX))
+    const updateDisplacementSpritePositionX = this.displacementSprite.current.x += oX
+    this.setState({
+      x: updateDisplacementSpritePositionX
+    })
+
+  }
 
   handleMouseWheel({ deltaY }) {
     const index = this.state.post.index
@@ -177,19 +174,21 @@ class IndexPage extends Component {
             height={height}
             filters={this.state.filters}
           >
-            <Sprite texture={bgTexture} />
-            <Sprite
+            <TilingSprite
               ref={this.displacementSprite}
               texture={displacementTexture}
-              width={width}
-              height={height}
             />
-            <TilingSprite
+            <Sprite
               ref={this.overlaySprite}
               texture={bgTexture}
               width={width}
               height={height}
             />
+            <TilingSprite
+              ref={this.displacementSprite}
+              texture={displacementTexture}
+            />
+
           </Stage>
         </div>
       </Layout>
