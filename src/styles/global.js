@@ -47,10 +47,10 @@ const GlobalStyle = createGlobalStyle`
   /* Canvas for PIXI */
   canvas {
     position: absolute;
-  top: 0;
-  left: 0;
-  z-index:-1;
-  pointer-events: none;
+    top: 0;
+    left: 0;
+    z-index:-1;
+    pointer-events: none;
   }
 
   /* Site Specific Globals */
@@ -64,7 +64,7 @@ const GlobalStyle = createGlobalStyle`
     text-rendering: optimizeLegibility;
     text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
     font-weight: 400;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
   }
 
   img {

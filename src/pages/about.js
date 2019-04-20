@@ -1,20 +1,19 @@
 import React, { useState, useCallback, useMemo } from 'react'
 import * as THREE from 'three/src/Three'
 import styled from 'styled-components'
-import Layout from '../components/layout'
+import Layout from '../components/general/layout'
 
 import { vertexShader, fragmentShader } from '../shaders/XFaderShader'
 
 import { Canvas, useThree } from 'react-three-fiber'
 import { useSpring, animated } from 'react-spring/three'
 
-import '../style.css'
 import data from '../components/data'
 
 const Grid = styled.div`
   display: flex;
   flex-wrap: wrap;
-  .item{
+  .item {
     position: relative;
     width: 100vw;
     height: 100vw;
@@ -30,30 +29,27 @@ const loader = new THREE.TextureLoader()
 function ImageWebgl({ url1, url2, disp, intensity, hovered }) {
   const { progress } = useSpring({ progress: hovered ? 1 : 0 })
   const { invalidate } = useThree()
-  const args = useMemo(
-    () => {
-      const texture1 = loader.load(url1, invalidate)
-      const texture2 = loader.load(url2, invalidate)
-      const dispTexture = loader.load(disp, invalidate)
+  const args = useMemo(() => {
+    const texture1 = loader.load(url1, invalidate)
+    const texture2 = loader.load(url2, invalidate)
+    const dispTexture = loader.load(disp, invalidate)
 
-      dispTexture.wrapS = dispTexture.wrapT = THREE.RepeatWrapping
-      texture1.magFilter = texture2.magFilter = THREE.LinearFilter
-      texture1.minFilter = texture2.minFilter = THREE.LinearFilter
+    dispTexture.wrapS = dispTexture.wrapT = THREE.RepeatWrapping
+    texture1.magFilter = texture2.magFilter = THREE.LinearFilter
+    texture1.minFilter = texture2.minFilter = THREE.LinearFilter
 
-      return {
-        uniforms: {
-          effectFactor: { type: 'f', value: intensity },
-          dispFactor: { type: 'f', value: 0 },
-          texture: { type: 't', value: texture1 },
-          texture2: { type: 't', value: texture2 },
-          disp: { type: 't', value: dispTexture }
-        },
-        vertexShader,
-        fragmentShader
-      }
-    },
-    [url1, url2, disp, intensity, invalidate]
-  )
+    return {
+      uniforms: {
+        effectFactor: { type: 'f', value: intensity },
+        dispFactor: { type: 'f', value: 0 },
+        texture: { type: 't', value: texture1 },
+        texture2: { type: 't', value: texture2 },
+        disp: { type: 't', value: dispTexture },
+      },
+      vertexShader,
+      fragmentShader,
+    }
+  }, [url1, url2, disp, intensity, invalidate])
 
   return (
     <mesh>
@@ -96,7 +92,13 @@ function AboutPage() {
     <Layout>
       <Grid>
         {data.map(([url1, url2, disp, intensity], index) => (
-          <Image key={index} url1={url1} url2={url2} disp={disp} intensity={intensity} />
+          <Image
+            key={index}
+            url1={url1}
+            url2={url2}
+            disp={disp}
+            intensity={intensity}
+          />
         ))}
       </Grid>
     </Layout>

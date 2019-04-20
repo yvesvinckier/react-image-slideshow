@@ -12,7 +12,7 @@ import ContactLink from '../components/ContactLink'
 import Social from '../components/Social'
 import ColumnTwo from '../components/ColumnTwo'
 import ColumnOne from '../components/ColumnOne'
-import Layout from '../components/layout'
+import Layout from '../components/general/layout'
 import NumLetter from '../components/NumLetter'
 
 const displacementTexture = PIXI.Texture.fromImage(displacementImage)
@@ -26,7 +26,7 @@ const InnerCol = styled.section`
 const height = window.innerHeight
 const width = window.innerWidth
 const OPTIONS = {
-  backgroundColor: 0x000000
+  backgroundColor: 0x000000,
 }
 
 class IndexPage extends Component {
@@ -71,11 +71,10 @@ class IndexPage extends Component {
     const oX = (e.nativeEvent.offsetX / width) * 100
 
     console.log(Math.floor(oX))
-    const updateDisplacementSpritePositionX = this.displacementSprite.current.x += oX
+    const updateDisplacementSpritePositionX = (this.displacementSprite.current.x += oX)
     this.setState({
-      x: updateDisplacementSpritePositionX
+      x: updateDisplacementSpritePositionX,
     })
-
   }
 
   handleMouseWheel({ deltaY }) {
@@ -188,7 +187,6 @@ class IndexPage extends Component {
               ref={this.displacementSprite}
               texture={displacementTexture}
             />
-
           </Stage>
         </div>
       </Layout>

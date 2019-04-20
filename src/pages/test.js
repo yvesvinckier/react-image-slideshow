@@ -5,7 +5,7 @@ import { useSpring, animated as anim } from 'react-spring/three'
 
 import { Canvas } from 'react-three-fiber'
 
-import Layout from '../components/layout'
+import Layout from '../components/general/layout'
 
 import img1 from '../img/Img1.jpg'
 import img2 from '../img/Img2.jpg'

@@ -5,6 +5,7 @@ module.exports = {
     title: 'Andy',
   },
   plugins: [
+    `gatsby-transformer-remark`,
     {
       resolve: `gatsby-source-contentful`,
       options: {

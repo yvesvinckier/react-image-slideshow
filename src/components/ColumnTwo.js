@@ -140,14 +140,14 @@ class Slider extends Component {
 
   render() {
     const { goToNextSlide, goToPrevSlide } = this.props
-    const { index, title } = this.props.post
+    const { index, title, slug } = this.props.post
 
     return (
       <ColTwo>
         <Category ref={h3 => (this.postCategory = h3)}>
           [ UI, Web Design ]
         </Category>
-        <Link to="/" className="inner_h2">
+        <Link to={`/${slug}/`} className="inner_h2">
           <h2 className="title" ref={h2 => (this.postTitle = h2)}>
             {title}
           </h2>
