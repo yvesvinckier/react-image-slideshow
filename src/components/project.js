@@ -2,9 +2,10 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import SEO from '../components/general/SEO'
 import Hero from '../components/general/Hero'
+import ProjectDetails from '../components/project/ProjectDetails'
 
 const ProjectTemplate = ({ data, pageContext }) => {
-  const { title, content, cover } = data.contentfulGallery
+  const { title, content, cover, herotitle, category } = data.contentfulGallery
 
   // const previous = pageContext.prev
   // const next = pageContext.next
@@ -12,8 +13,11 @@ const ProjectTemplate = ({ data, pageContext }) => {
   return (
     <>
       <SEO title={title} image={cover} description={content} />
-      <Hero image={cover} title={title} />
-      {/* <div>{content}</div> */}
+      <Hero image={cover} title={title} herotitle={herotitle}
+        category={category} />
+      <ProjectDetails
+        description={content}
+      />
     </>
   )
 }
@@ -23,6 +27,11 @@ export const query = graphql`
       title
       id
       slug
+      herotitle
+      category {
+        name
+        categoryslug
+      }
       cover {
         title
         fluid(maxWidth: 1800) {
