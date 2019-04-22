@@ -54,6 +54,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   /* Site Specific Globals */
+  @import url('https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900');
   body {
     background: #121212;
     color: white;
@@ -64,7 +65,7 @@ const GlobalStyle = createGlobalStyle`
     text-rendering: optimizeLegibility;
     text-shadow: rgba(0, 0, 0, .01) 0 0 1px;
     font-weight: 400;
-    font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
   }
 
   img {
