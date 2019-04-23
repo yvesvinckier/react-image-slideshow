@@ -45,13 +45,14 @@ const GlobalStyle = createGlobalStyle`
   }
 
   /* Canvas for PIXI */
-  canvas {
+  
+  /* canvas {
     position: absolute;
     top: 0;
     left: 0;
     z-index:-1;
     pointer-events: none;
-  }
+  } */
 
   /* Site Specific Globals */
   @import url('https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900');
