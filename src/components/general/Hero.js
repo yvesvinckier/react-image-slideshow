@@ -17,7 +17,7 @@ const BgImg = styled(Img)`
   width: 100%;
   z-index: -1;
   max-height: 600px;
-  
+
   & > img {
     object-fit: cover !important;
     object-position: 50% 50% !important;
@@ -44,16 +44,15 @@ const OverflowHeroTitle = styled.div`
   padding: 0.5rem 0;
 `
 const HeroTitleH2 = styled(animated.div)`
-h2 {
-  font-family: spectral,Times New Roman,Times,serif;
+  h2 {
+    font-family: spectral, Times New Roman, Times, serif;
     font-size: 1em;
     font-style: italic;
     font-weight: 300;
     @media screen and (min-width: ${props => props.theme.responsive.small}) {
-    font-size: 1em;
+      font-size: 1em;
     }
-}
-    
+  }
 `
 
 const Overflow = styled.div`
@@ -73,13 +72,13 @@ const OverflowCategory = styled.div`
   overflow: hidden;
   padding: 0.5rem 0;
   font-weight: 300;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
 `
 const OverflowCategoryAnim = styled(animated.div)`
   span:first-of-type {
     font-size: 0.7em;
-    opacity: .7;
+    opacity: 0.7;
   }
   span:last-of-type {
     display: block;
@@ -98,7 +97,6 @@ const Title = styled(animated.div)`
   font-size: 2em;
   transform: translateY(50px);
   margin: 15px 0;
-    
 
   @media screen and (min-width: ${props => props.theme.responsive.small}) {
     padding: 0 3rem;
@@ -114,13 +112,13 @@ const Title = styled(animated.div)`
 `
 
 function Hero(props) {
-
   const HeroTitleAnimProps = useSpring({
     config: config.slow,
     delay: 800,
     from: { opacity: 1, transform: 'translateY(4em)' },
     to: {
-      opacity: 1, transform: 'translateY(0em)'
+      opacity: 1,
+      transform: 'translateY(0em)',
     },
   })
 
@@ -129,7 +127,8 @@ function Hero(props) {
     delay: 900,
     from: { opacity: 1, transform: 'translateY(5em)' },
     to: {
-      opacity: 1, transform: 'translateY(0em)'
+      opacity: 1,
+      transform: 'translateY(0em)',
     },
   })
 
@@ -138,7 +137,7 @@ function Hero(props) {
     delay: 1100,
     from: { transform: 'translateY(3em)' },
     to: {
-      transform: 'translateY(0em)'
+      transform: 'translateY(0em)',
     },
   })
 
@@ -150,7 +149,6 @@ function Hero(props) {
   })
 
   return (
-
     <Wrapper style={HeroAnimProps}>
       <OverflowHeroTitle>
         <HeroTitleH2 style={HeroTitleAnimProps}>

@@ -14,14 +14,13 @@ const Description = styled.div`
   }
 `
 
-
 const ProjectDetails = props => {
-    return (
-        <Description
-            dangerouslySetInnerHTML={{
-                __html: props.description.childMarkdownRemark.html,
-            }}
-        />
-    )
+  return (
+    <Description
+      dangerouslySetInnerHTML={{
+        __html: props.description.childMarkdownRemark.html,
+      }}
+    />
+  )
 }
 export default ProjectDetails

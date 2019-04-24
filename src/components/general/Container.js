@@ -8,8 +8,8 @@ const Wrapper = styled.section`
   padding: 0 1.5rem;
   height: 100%;
   ${props =>
-        props.minHeight &&
-        css`
+    props.minHeight &&
+    css`
       min-height: calc(100vh - 128px);
     `};
   @media screen and (min-width: ${props => props.theme.responsive.small}) {
@@ -18,7 +18,7 @@ const Wrapper = styled.section`
 `
 
 const Container = props => {
-    return <Wrapper {...props}>{props.children}</Wrapper>
+  return <Wrapper {...props}>{props.children}</Wrapper>
 }
 
 export default Container

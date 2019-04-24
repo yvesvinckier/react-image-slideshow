@@ -13,11 +13,13 @@ const ProjectTemplate = ({ data, pageContext }) => {
   return (
     <>
       <SEO title={title} image={cover} description={content} />
-      <Hero image={cover} title={title} herotitle={herotitle}
-        category={category} />
-      <ProjectDetails
-        description={content}
+      <Hero
+        image={cover}
+        title={title}
+        herotitle={herotitle}
+        category={category}
       />
+      <ProjectDetails description={content} />
     </>
   )
 }
