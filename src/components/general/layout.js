@@ -4,6 +4,8 @@ import { ThemeProvider } from 'styled-components'
 import GlobalStyle from '../../styles/global'
 import theme from '../../styles/theme'
 
+import Nav from '../general/Nav'
+
 class Layout extends React.Component {
   render() {
     const children = this.props.children
@@ -18,6 +20,7 @@ class Layout extends React.Component {
               content="width=device-width, initial-scale=1"
             />
           </Helmet>
+          <Nav />
           <div role="main">{children}</div>
           <GlobalStyle />
         </div>

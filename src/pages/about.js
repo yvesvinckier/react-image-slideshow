@@ -3,7 +3,7 @@ import * as THREE from 'three/src/Three'
 import styled from 'styled-components'
 import Layout from '../components/general/layout'
 
-import { vertexShader, fragmentShader } from '../shaders/XFaderShader'
+import { vertexShader, fragmentShader } from '../shaders/XFadeShader2'
 
 import { Canvas, useThree } from 'react-three-fiber'
 import { useSpring, animated } from 'react-spring/three'

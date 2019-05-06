@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react'
 import * as THREE from 'three'
-import { XFadeShader } from '../shaders/XFaderShader'
+import { XFadeShader } from '../shaders/XFadeShader'
 import { useSpring, animated as anim } from 'react-spring/three'
 
 import { Canvas } from 'react-three-fiber'
