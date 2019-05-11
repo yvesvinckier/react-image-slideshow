@@ -25,7 +25,7 @@ const Toggle = styled.button`
     height: 1px;
     top:0;
     transition: transform .6s cubic-bezier(.165,.84,.44,1);
-&::before{
+    &::before{
       content: "";
       position: absolute;
       top: 0;
@@ -58,7 +58,7 @@ const Toggle = styled.button`
     width: 100%;
     height: 1px;
     bottom:0;
-&::before{
+    &::before{
       content: "";
       position: absolute;
       top: 0;

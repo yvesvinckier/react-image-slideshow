@@ -1,0 +1,30 @@
+{
+    "nav": {
+        "links": [
+            {
+                "text": "Home",
+                "to": "/"
+            },
+            {
+                "text": "Work",
+                "to": "/Work"
+            },
+            {
+                "text": "About",
+                "to": "/About"
+            },
+            {
+                "text": "Incubation",
+                "to": "/Incubation"
+            },
+            {
+                "text": "Careers",
+                "to": "/Careers"
+            },
+            {
+                "text": "Contact",
+                "to": "/Contact"
+            }
+        ]
+    }
+}
