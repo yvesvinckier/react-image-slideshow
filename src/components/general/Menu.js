@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import { useSpring, animated, config } from 'react-spring'
+import { animated, useTrail } from 'react-spring'
 import styled from 'styled-components'
 import content from './NavContent'
 
@@ -49,17 +49,21 @@ const NavRight = styled(animated.div)`
     overflow: hidden;
     margin-top: 30px;
   }
+  .trails-text {
+    will-change: transform;
+  }
   a {
     position: relative;
     display: inline-block;
     padding-bottom: 7px;
-    font-size: 3.472vw;
+    font-size: 2.9em;
     text-decoration: none;
     cursor: pointer;
     margin: 0;
     color: ${props => props.theme.colors.base};
     font-weight: 200;
     line-height: 1;
+    overflow: hidden;
     &::before {
       content: '';
       position: absolute;
@@ -105,62 +109,46 @@ const MailToContainer = styled.p`
     }
   }
 `
+const config = { mass: 5, tension: 2000, friction: 200 }
 
 const Menu = ({ opened }) => {
-  const NavLeftAnimation = useSpring({
-    transform: opened
-      ? `translate3d(0,0,0) scaleY(1)`
-      : `translate3d(0,-100%,0) scaleY(0)`,
-    config: config.slow,
-    delay: 50,
-  })
-  const NavRightAnimation = useSpring({
-    transform: opened
-      ? `translate3d(0,0,0) scaleY(1)`
-      : `translate3d(0,-100%,0) scaleY(0)`,
-    config: config.slow,
-    delay: 150,
+  // const NavLeftAnimation = useSpring({
+  //   transform: opened
+  //     ? `translate3d(0,0,0) scaleY(1)`
+  //     : `translate3d(0,-100%,0) scaleY(0)`,
+  //   config: config.slow,
+  //   delay: 50,
+  // })
+  // const NavRightAnimation = useSpring({
+  //   transform: opened
+  //     ? `translate3d(0,0,0) scaleY(1)`
+  //     : `translate3d(0,-100%,0) scaleY(0)`,
+  //   config: config.slow,
+  //   delay: 150,
+  // })
+  const items = content.nav.links
+  const trail = useTrail(items.length, {
+    config,
+    transform: opened ? `translate3d(0,0,0)` : `translate3d(0,100%,0)`,
   })
   return (
     <NavWrapper>
-      <NavLeft style={NavLeftAnimation}>
+      <NavLeft>
         <MailToContainer>
           Start a conversation
           <a href="mailto:hello@andy.com">hello@andy.com</a>
         </MailToContainer>
       </NavLeft>
-      {/* <NavRight style={MenuAnimation}>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/about/">Work</Link>
-          </li>
-          <li>
-            <Link to="/galeries/">About</Link>
-          </li>
-          <li>
-            <Link to="/contact/">Incubation</Link>
-          </li>
-          <li>
-            <Link to="/contact/">Careers</Link>
-          </li>
-          <li>
-            <Link to="/contact/">Contact</Link>
-          </li>
-        </ul>
-      </NavRight> */}
-      <NavRight style={NavRightAnimation}>
-        {content.nav.links.map((item, index) => {
-          return (
-            <ul key={index}>
-              <li>
-                <Link to={item.to}>{item.text}</Link>
-              </li>
-            </ul>
-          )
-        })}
+      <NavRight>
+        {trail.map((animation, index) => (
+          <ul key={items[index].to}>
+            <animated.li>
+              <animated.div className="trails-text" style={animation}>
+                <Link to={items[index].to}>{items[index].text}</Link>
+              </animated.div>
+            </animated.li>
+          </ul>
+        ))}
       </NavRight>
     </NavWrapper>
   )
