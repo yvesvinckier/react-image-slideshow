@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Link } from 'gatsby'
-import { animated, useTrail } from 'react-spring'
+import { animated, useTrail, useSpring, useChain, config } from 'react-spring'
 import styled from 'styled-components'
 import content from './NavContent'
 
@@ -24,6 +24,7 @@ const NavLeft = styled(animated.div)`
   width: 100%;
   height: 100%;
   background: ${props => props.theme.colors.white};
+  will-change: transform;
   @media screen and (min-width: ${props => props.theme.responsive.small}) {
     flex: 0 1 50%;
   }
@@ -37,6 +38,7 @@ const NavRight = styled(animated.div)`
   height: 100%;
   background: ${props => props.theme.colors.secondary};
   padding-left: 5%;
+  will-change: transform;
   @media screen and (min-width: ${props => props.theme.responsive.small}) {
     flex: 0 1 50%;
   }
@@ -109,37 +111,62 @@ const MailToContainer = styled.p`
     }
   }
 `
-const config = { mass: 5, tension: 2000, friction: 200 }
+// const config = { mass: 5, tension: 2000, friction: 200 }
 
 const Menu = ({ opened }) => {
-  // const NavLeftAnimation = useSpring({
-  //   transform: opened
-  //     ? `translate3d(0,0,0) scaleY(1)`
-  //     : `translate3d(0,-100%,0) scaleY(0)`,
-  //   config: config.slow,
-  //   delay: 50,
-  // })
-  // const NavRightAnimation = useSpring({
-  //   transform: opened
-  //     ? `translate3d(0,0,0) scaleY(1)`
-  //     : `translate3d(0,-100%,0) scaleY(0)`,
-  //   config: config.slow,
-  //   delay: 150,
-  // })
-  const items = content.nav.links
-  const trail = useTrail(items.length, {
-    config,
-    transform: opened ? `translate3d(0,0,0)` : `translate3d(0,100%,0)`,
+  const springLeftRef = useRef()
+  const NavLeftAnimation = useSpring({
+    ref: springLeftRef,
+    config: config.slow,
+    from: {
+      transform: `translate3d(0,-100%,0)`,
+    },
+    to: {
+      transform: opened ? `translate3d(0,0,0)` : `translate3d(0,-100%,0)`,
+    },
   })
+
+  const springRightRef = useRef()
+  const NavRightAnimation = useSpring({
+    ref: springRightRef,
+    config: config.slow,
+    from: {
+      transform: `translate3d(0,-100%,0)`,
+    },
+    to: {
+      transform: opened ? `translate3d(0,0,0)` : `translate3d(0,-100%,0)`,
+    },
+  })
+
+  const items = content.nav.links
+  const transitionRef = useRef()
+  const trail = useTrail(items.length, {
+    ref: transitionRef,
+    config: config.default,
+    from: {
+      transform: `translate3d(0,100%,0)`,
+    },
+    to: {
+      transform: opened ? `translate3d(0,0,0)` : `translate3d(0,100%,0)`,
+    },
+  })
+
+  useChain(
+    opened
+      ? [springRightRef, springLeftRef, transitionRef]
+      : [transitionRef, springLeftRef, springRightRef],
+    [0, 0.1, 0.3]
+  )
+
   return (
     <NavWrapper>
-      <NavLeft>
+      <NavLeft style={NavLeftAnimation}>
         <MailToContainer>
           Start a conversation
           <a href="mailto:hello@andy.com">hello@andy.com</a>
         </MailToContainer>
       </NavLeft>
-      <NavRight>
+      <NavRight style={NavRightAnimation}>
         {trail.map((animation, index) => (
           <ul key={items[index].to}>
             <animated.li>
