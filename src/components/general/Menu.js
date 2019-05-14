@@ -75,9 +75,11 @@ const NavRight = styled(animated.div)`
       height: 1px;
       background: ${props => props.theme.colors.base};
       transform-origin: left;
-
-      /* transform: scaleX(0) translateZ(0); */
+      transform: scaleX(0) translateZ(0);
       transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    &:hover::before {
+      transform: scaleX(1) translateZ(0);
     }
   }
 `
@@ -106,8 +108,27 @@ const MailToContainer = styled.p`
       min-height: 1px;
       background: ${props => props.theme.colors.base};
       transform-origin: right;
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
       transform: scaleX(1) translateZ(0);
+    }
+    :hover::before {
+      transform: scaleX(0) translateZ(0);
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 0.02em;
+      min-height: 1px;
+      background: ${props => props.theme.colors.base};
+      transform-origin: left;
       transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.3s;
+      transform: scaleX(0) translateZ(0);
+    }
+    &:hover::after {
+      transform: scaleX(1) translateZ(0);
     }
   }
 `

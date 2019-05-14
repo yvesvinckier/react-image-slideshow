@@ -16,72 +16,65 @@ const Toggle = styled.button`
   margin-right: 7.142857142857142%;
   perspective: 200px;
   transform: translateZ(0);
-  transition: opacity 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   .topbar {
     position: absolute;
     display: block;
-    /* background: ${props => props.theme.colors.white}; */
     width: 100%;
     height: 1px;
-    top:0;
-    transition: transform .6s cubic-bezier(.165,.84,.44,1);
-    &::before{
-      content: "";
+    top: 0;
+    &::before {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       background: #fff;
-      opacity: .99;
       transform-origin: right;
-      transition: transform .6s cubic-bezier(.165,.84,.44,1) .2s;
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
       transform: scaleX(1) translateZ(0);
     }
-    &::after{
-      content: "";
+    &::after {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       background: #fff;
-      opacity: .99;
       transform-origin: left;
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
       transform: scaleX(0) translateZ(0);
     }
   }
   .bottombar {
     position: absolute;
     display: block;
-    /* background: ${props => props.theme.colors.white}; */
     width: 100%;
     height: 1px;
-    bottom:0;
-    &::before{
-      content: "";
+    bottom: 0;
+    &::before {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       background: #fff;
-      opacity: .99;
       transform-origin: left;
-      transition: transform .6s cubic-bezier(.165,.84,.44,1) .2s;
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
       transform: scaleX(1) translateZ(0);
     }
-    &::after{
-      content: "";
+    &::after {
+      content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
       background: #fff;
-      opacity: .99;
       transform-origin: right;
-      transition: transform .6s cubic-bezier(.165,.84,.44,1);
+      transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) 0.2s;
       transform: scaleX(0) translateZ(0);
     }
   }
