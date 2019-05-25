@@ -93,18 +93,7 @@ const Toggle = styled.button`
     }
   }
 `
-const ToggleLabel = styled.span`
-  font-size: 1rem;
-  font-weight: 700;
-  height: 100%;
-  color: ${props => props.theme.colors.white};
-  display: none;
-  opacity: 0;
-  @media screen and (min-width: ${props => props.theme.responsive.small}) {
-    display: block;
-    opacity: 1;
-  }
-`
+
 const ToggleIcon = styled.div`
   position: relative;
   width: 24px;
@@ -125,7 +114,6 @@ function Hambuger({ toggle, opened }) {
   })
   return (
     <Toggle onClick={toggle}>
-      <ToggleLabel>oui will</ToggleLabel>
       <ToggleIcon>
         <animated.span className="topbar" style={BarOneAnimation} />
         <animated.span className="bottombar" style={BarTwoAnimation} />

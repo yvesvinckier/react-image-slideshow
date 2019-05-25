@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 import SEO from '../components/general/SEO'
-import Hero from '../components/general/Hero'
+import Hero from '../components/project/Hero'
 import ProjectDetails from '../components/project/ProjectDetails'
 
 const ProjectTemplate = ({ data, pageContext }) => {

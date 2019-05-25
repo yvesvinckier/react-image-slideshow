@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Helmet from 'react-helmet'
 import { graphql } from 'gatsby'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
@@ -7,13 +8,12 @@ import { Stage, Sprite, TilingSprite } from 'react-pixi-fiber'
 import * as PIXI from 'pixi.js'
 import displacementImage from '../images/dmaps/gradient4.png'
 
-import WhiteHeader from '../components/WhiteHeader'
-import ContactLink from '../components/ContactLink'
-import Social from '../components/Social'
-import ColumnTwo from '../components/ColumnTwo'
-import ColumnOne from '../components/ColumnOne'
-import Layout from '../components/general/layout'
-import NumLetter from '../components/NumLetter'
+import WhiteHeader from '../components/home/WhiteHeader'
+import Social from '../components/home/Social'
+import ColumnTwo from '../components/home/ColumnTwo'
+import ColumnOne from '../components/home/ColumnOne'
+import SEO from '../components/general/SEO'
+import NumLetter from '../components/home/NumLetter'
 
 const displacementTexture = PIXI.Texture.fromImage(displacementImage)
 
@@ -146,10 +146,11 @@ class IndexPage extends Component {
     const bgTexture = PIXI.Texture.fromImage(post.cover.resize.src)
 
     return (
-      <Layout>
+      <>
+        <SEO />
+        <Helmet />
         <div onMouseMove={this._onMouseMove}>
           <WhiteHeader />
-          <ContactLink />
           <NumLetter
             posts={posts}
             post={post}
@@ -189,7 +190,7 @@ class IndexPage extends Component {
             />
           </Stage>
         </div>
-      </Layout>
+      </>
     )
   }
 }

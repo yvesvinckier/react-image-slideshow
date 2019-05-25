@@ -21,7 +21,9 @@ class Layout extends React.Component {
             />
           </Helmet>
           <Nav />
-          <div role="main">{children}</div>
+          <section role="main">
+            {children}
+          </section>
           <GlobalStyle />
         </div>
       </ThemeProvider>

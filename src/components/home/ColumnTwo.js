@@ -4,8 +4,8 @@ import { Link } from 'gatsby'
 import { TimelineLite, Power2 } from 'gsap'
 import styled from 'styled-components'
 
-import SVGArrowPrev from '../images/arrow-prev.svg'
-import SVGArrowNext from '../images/arrow-next.svg'
+import SVGArrowPrev from '../../images/arrow-prev.svg'
+import SVGArrowNext from '../../images/arrow-next.svg'
 
 const ColTwo = styled.div`
   position: relative;
@@ -19,11 +19,10 @@ const ColTwo = styled.div`
     margin: 20px 0 0 -3px;
     color: #fff;
     h2 {
-      font-weight: 500;
-      font-size: 100px;
+      font-weight: 300;
+      font-size: 9.16vw;
       line-height: 100px;
       @media screen and (min-width: ${props => props.theme.responsive.small}) {
-        font-size: 10vw;
         line-height: 8vw;
       }
     }

@@ -4,7 +4,7 @@ import { animated, useTrail, useSpring, useChain, config } from 'react-spring'
 import styled from 'styled-components'
 import content from './NavContent'
 
-const NavWrapper = styled.nav`
+const NavWrapper = styled(animated.nav)`
   z-index: 888;
   height: 90vh;
   width: 100%;
@@ -159,6 +159,18 @@ const Menu = ({ opened }) => {
     },
   })
 
+  const springGlobalRef = useRef()
+  const NavGlobalAnimation = useSpring({
+    ref: springGlobalRef,
+    config: config.slow,
+    from: {
+      transform: `translate3d(0,-100%,0)`,
+    },
+    to: {
+      transform: opened ? `translate3d(0,0,0)` : `translate3d(0,-100%,0)`,
+    },
+  })
+
   const items = content.nav.links
   const transitionRef = useRef()
   const trail = useTrail(items.length, {
@@ -174,13 +186,13 @@ const Menu = ({ opened }) => {
 
   useChain(
     opened
-      ? [springRightRef, springLeftRef, transitionRef]
-      : [transitionRef, springLeftRef, springRightRef],
-    [0, 0.1, 0.3]
+      ? [springGlobalRef, springRightRef, springLeftRef, transitionRef]
+      : [transitionRef, springLeftRef, springRightRef, springGlobalRef],
+    [0, 0, 0.1, 0.3]
   )
 
   return (
-    <NavWrapper>
+    <NavWrapper style={NavGlobalAnimation}>
       <NavLeft style={NavLeftAnimation}>
         <MailToContainer>
           Start a conversation

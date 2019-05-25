@@ -41,8 +41,8 @@ const Header = styled.div`
     }
   }
   h2 {
-    font-weight: 500;
-    font-size: 16px;
+    font-size: 1rem;
+    font-weight: 700;
     position: absolute;
     top: 7vw;
     left: calc(26vw - 6px);
@@ -72,73 +72,11 @@ const Header = styled.div`
   }
 `
 
-const AllWorks = styled.div`
-  z-index: 20;
-  top: calc(7vw - 6px);
-  right: calc(7vw - 6px);
-  font-weight: 400;
-  font-size: 13px;
-  position: absolute;
-  cursor: pointer;
-  line-height: 0;
-  padding: 14px 6px 14px 6px;
-  &::after {
-    content: '';
-    width: 3px;
-    height: 3px;
-    background: #fff;
-    position: absolute;
-    top: calc(100% + 12px);
-    left: 7px;
-    pointer-events: none;
-    opacity: 0;
-    transform-origin: 0 100%;
-    transform: scaleY(5);
-    transition: opacity 0.1s, transform 0.1s;
-  }
-  &:hover::after {
-    opacity: 1;
-    transform: scaleY(1);
-  }
-  span {
-    padding-right: 30px;
-  }
-`
-const VerticalPlus = styled.div`
-  position: absolute;
-  width: 2px;
-  height: 10px;
-  background: #fff;
-  top: 8px;
-  right: 11px;
-  transform-origin: 0 50%;
-`
-
-const HorizontalPlus = styled.div`
-  position: absolute;
-  width: 10px;
-  height: 2px;
-  background: #fff;
-  top: 12px;
-  right: 7px;
-  transform-origin: 100 % 0;
-`
-
 const WhiteHeader = () => (
   <Header>
-    <Link to="/">
-      <div>AD</div>
-    </Link>
     <h2>
-      <Link to="/">ANDY</Link>
+      <Link to="/">blow-up</Link>
     </h2>
-    <AllWorks>
-      <span>
-        <Link to="/">All Works</Link>
-      </span>
-      <VerticalPlus />
-      <HorizontalPlus />
-    </AllWorks>
   </Header>
 )
 
