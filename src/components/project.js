@@ -5,7 +5,15 @@ import Hero from '../components/project/Hero'
 import ProjectDetails from '../components/project/ProjectDetails'
 
 const ProjectTemplate = ({ data, pageContext }) => {
-  const { title, content, cover, herotitle, category } = data.contentfulGallery
+  const {
+    title,
+    content,
+    cover,
+    herotitle,
+    category,
+    projectDescription,
+    projectParagraph,
+  } = data.contentfulGallery
 
   // const previous = pageContext.prev
   // const next = pageContext.next
@@ -19,7 +27,11 @@ const ProjectTemplate = ({ data, pageContext }) => {
         herotitle={herotitle}
         category={category}
       />
-      <ProjectDetails description={content} />
+      <ProjectDetails
+        projectDescription={projectDescription}
+        projectParagraph={projectParagraph}
+        content={content}
+      />
     </>
   )
 }
@@ -33,6 +45,18 @@ export const query = graphql`
       category {
         name
         categoryslug
+      }
+      projectDescription {
+        childMarkdownRemark {
+          html
+          excerpt(format: PLAIN)
+        }
+      }
+      projectParagraph {
+        childMarkdownRemark {
+          html
+          excerpt(format: PLAIN)
+        }
       }
       cover {
         title

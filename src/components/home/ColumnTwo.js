@@ -6,7 +6,6 @@ import styled from 'styled-components'
 
 import SVGArrowPrev from '../../images/arrow-prev.svg'
 import SVGArrowNext from '../../images/arrow-next.svg'
-// import TitleTransition from '../home/TitleTransition'
 
 const ColTwo = styled.div`
   position: relative;
