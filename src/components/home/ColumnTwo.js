@@ -6,6 +6,7 @@ import styled from 'styled-components'
 
 import SVGArrowPrev from '../../images/arrow-prev.svg'
 import SVGArrowNext from '../../images/arrow-next.svg'
+// import TitleTransition from '../home/TitleTransition'
 
 const ColTwo = styled.div`
   position: relative;
@@ -146,6 +147,7 @@ class Slider extends Component {
         <Category ref={h3 => (this.postCategory = h3)}>
           [ UI, Web Design ]
         </Category>
+        {/* <TitleTransition slug={slug} title={title} /> */}
         <Link to={`/${slug}/`} className="inner_h2">
           <h2 className="title" ref={h2 => (this.postTitle = h2)}>
             {title}
