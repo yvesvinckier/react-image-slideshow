@@ -57,7 +57,7 @@ const GlobalStyle = createGlobalStyle`
   /* Site Specific Globals */
   @import url('https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900');
   body {
-    background: #121212;
+    background: white;
     color: white;
     line-height: 1;
     font-variant-ligatures: none;

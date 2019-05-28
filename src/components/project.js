@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import SEO from '../components/general/SEO'
 import Hero from '../components/project/Hero'
 import ProjectDetails from '../components/project/ProjectDetails'
+import TabletTwo from '../components/project/TabletTwo'
 
 const ProjectTemplate = ({ data, pageContext }) => {
   const {
@@ -13,6 +14,9 @@ const ProjectTemplate = ({ data, pageContext }) => {
     category,
     projectDescription,
     projectParagraph,
+    tabletTwo,
+    tabletTwoTitle,
+    tabletTwoDesc,
   } = data.contentfulGallery
 
   // const previous = pageContext.prev
@@ -32,6 +36,7 @@ const ProjectTemplate = ({ data, pageContext }) => {
         projectParagraph={projectParagraph}
         content={content}
       />
+      <TabletTwo tabletTwo={tabletTwo} tabletTwoTitle={tabletTwoTitle} tabletTwoDesc={tabletTwoDesc} />
     </>
   )
 }
@@ -42,6 +47,13 @@ export const query = graphql`
       id
       slug
       herotitle
+      tabletTwoTitle
+      tabletTwoDesc {
+        childMarkdownRemark {
+          html
+          excerpt(format: PLAIN)
+        }
+      }
       category {
         name
         categoryslug
@@ -67,6 +79,11 @@ export const query = graphql`
           src
           width
           height
+        }
+      }
+      tabletTwo{
+        fluid(maxWidth: 1800) {
+          ...GatsbyContentfulFluid_withWebp_noBase64
         }
       }
       content {
