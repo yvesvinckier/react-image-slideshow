@@ -4,6 +4,7 @@ import SEO from '../components/general/SEO'
 import Hero from '../components/project/Hero'
 import ProjectDetails from '../components/project/ProjectDetails'
 import TabletTwo from '../components/project/TabletTwo'
+import StickySection from '../components/project/StickySection'
 
 const ProjectTemplate = ({ data, pageContext }) => {
   const {
@@ -17,6 +18,7 @@ const ProjectTemplate = ({ data, pageContext }) => {
     tabletTwo,
     tabletTwoTitle,
     tabletTwoDesc,
+    stickyImage,
   } = data.contentfulGallery
 
   // const previous = pageContext.prev
@@ -36,7 +38,12 @@ const ProjectTemplate = ({ data, pageContext }) => {
         projectParagraph={projectParagraph}
         content={content}
       />
-      <TabletTwo tabletTwo={tabletTwo} tabletTwoTitle={tabletTwoTitle} tabletTwoDesc={tabletTwoDesc} />
+      <TabletTwo
+        tabletTwo={tabletTwo}
+        tabletTwoTitle={tabletTwoTitle}
+        tabletTwoDesc={tabletTwoDesc}
+      />
+      <StickySection stickyImage={stickyImage} />
     </>
   )
 }
@@ -81,7 +88,13 @@ export const query = graphql`
           height
         }
       }
-      tabletTwo{
+      stickyImage {
+        title
+        fluid(maxWidth: 1800) {
+          ...GatsbyContentfulFluid_withWebp_noBase64
+        }
+      }
+      tabletTwo {
         fluid(maxWidth: 1800) {
           ...GatsbyContentfulFluid_withWebp_noBase64
         }
