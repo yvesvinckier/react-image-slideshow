@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 const OuterWrapper = styled.div`
   position: relative;
+  background: white;
 `
 const TabletBcg = styled.div`
   position: absolute;

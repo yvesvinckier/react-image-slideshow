@@ -2,6 +2,7 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import SEO from '../components/general/SEO'
 import find from 'lodash.find'
+import styled from 'styled-components'
 
 import Hero from '../components/project/Hero'
 import ProjectDetails from '../components/project/ProjectDetails'
@@ -9,6 +10,29 @@ import TabletTwo from '../components/project/TabletTwo'
 import StickySection from '../components/project/StickySection'
 import FooterLink from '../components/project/FooterLink'
 
+const WrapperPage = styled.div`
+  z-index: 2;
+  @media screen and (min-width: ${props => props.theme.responsive.small}) {
+    position: relative;
+    &::before {
+      content: '';
+      display: block;
+      z-index: -2;
+      width: 0;
+      height: 75vh;
+      max-height: 750px;
+      background: transparent;
+    }
+    &::after {
+      content: '';
+      display: block;
+      z-index: -2;
+      width: 0;
+      height: 100vh;
+      background: transparent;
+    }
+  }
+`
 
 const ProjectTemplate = ({ data, pageContext }) => {
   const {
@@ -38,24 +62,26 @@ const ProjectTemplate = ({ data, pageContext }) => {
   return (
     <>
       <SEO title={title} image={cover} description={content} />
-      <Hero
-        image={cover}
-        title={title}
-        herotitle={herotitle}
-        category={category}
-      />
-      <ProjectDetails
-        projectDescription={projectDescription}
-        projectParagraph={projectParagraph}
-        content={content}
-      />
-      <TabletTwo
-        tabletTwo={tabletTwo}
-        tabletTwoTitle={tabletTwoTitle}
-        tabletTwoDesc={tabletTwoDesc}
-      />
-      <StickySection stickyImage={stickyImage} />
-      <FooterLink postIndex={postIndex} topic={topic} />
+      <WrapperPage>
+        <Hero
+          image={cover}
+          title={title}
+          herotitle={herotitle}
+          category={category}
+        />
+        <ProjectDetails
+          projectDescription={projectDescription}
+          projectParagraph={projectParagraph}
+          content={content}
+        />
+        <TabletTwo
+          tabletTwo={tabletTwo}
+          tabletTwoTitle={tabletTwoTitle}
+          tabletTwoDesc={tabletTwoDesc}
+        />
+        <StickySection stickyImage={stickyImage} />
+        <FooterLink postIndex={postIndex} topic={topic} />
+      </WrapperPage>
     </>
   )
 }
@@ -121,7 +147,7 @@ export const query = graphql`
     allContentfulGallery(
       filter: { node_locale: { eq: "fr-FR" } }
       limit: 1000
-      sort: { fields:createdAt, order: DESC }
+      sort: { fields: createdAt, order: DESC }
     ) {
       edges {
         node {

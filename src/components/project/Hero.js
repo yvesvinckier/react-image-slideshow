@@ -1,40 +1,35 @@
 import React from 'react'
 import styled from 'styled-components'
-import Img from 'gatsby-image'
 import { useSpring, animated, config } from 'react-spring'
+
+import BgImg from '../general/Background'
 
 const Wrapper = styled(animated.div)`
   position: relative;
-  display: flex;
-  align-items: center;
-  text-align: center;
-  color: #fff;
-  margin: 0 0 2rem;
-  height: 100vh;
-`
-
-const BgImg = styled(Img)`
   width: 100%;
   z-index: -1;
-  max-height: 600px;
-
-  & > img {
-    object-fit: cover !important;
-    object-position: 50% 50% !important;
+  height: 100vh;
+  @media screen and (min-width: ${props => props.theme.responsive.small}) {
+    top: 0;
+    position: fixed;
+  }
+  div {
+    max-height: 750px;
   }
   &::before {
     content: '';
+    background: rgba(0, 0, 0, 0.2);
     position: absolute;
+    top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    top: 0;
     height: 100%;
     width: 100%;
     z-index: 1;
-    background: rgba(0, 0, 0, 0.4);
   }
 `
+
 const OverflowHeroTitle = styled.div`
   position: absolute;
   top: 41%;
@@ -150,6 +145,13 @@ function Hero(props) {
 
   return (
     <Wrapper style={HeroAnimProps}>
+      <BgImg
+        height={'100vh'}
+        fluid={props.image.fluid}
+        alt={props.image.title}
+        title={props.image.title}
+        backgroundColor={'#212121'}
+      />
       <OverflowHeroTitle>
         <HeroTitleH2 style={HeroTitleAnimProps}>
           <h2>{props.herotitle} </h2>
@@ -166,12 +168,6 @@ function Hero(props) {
           <span>{props.category.name}</span>
         </OverflowCategoryAnim>
       </OverflowCategory>
-      <BgImg
-        fluid={props.image.fluid}
-        alt={props.image.title}
-        title={props.image.title}
-        backgroundColor={'#212121'}
-      />
     </Wrapper>
   )
 }
