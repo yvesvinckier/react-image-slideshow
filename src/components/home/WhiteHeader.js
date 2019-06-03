@@ -75,7 +75,7 @@ const Header = styled.div`
 const WhiteHeader = () => (
   <Header>
     <h2>
-      <Link to="/">blow-up</Link>
+      <Link to="/">blowup</Link>
     </h2>
   </Header>
 )

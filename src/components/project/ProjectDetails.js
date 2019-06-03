@@ -33,11 +33,10 @@ const ProjectDesc = styled.div`
     flex: 0 1 45%;
   }
   p {
-    font-family: spectral, Times New Roman, Times, serif;
-    font-size: 2em;
-    font-style: italic;
+    font-size: 1.5625rem;
     font-weight: 300;
-    line-height: 1.3;
+    line-height: 1.8;
+    color: rgb(51, 51, 51);
     margin: 0;
   }
 `
@@ -48,9 +47,9 @@ const ProjectPara = styled.div`
   }
   p {
     color: #676767;
-    font-size: 0.8em;
-    font-weight: 400;
-    line-height: 2;
+    line-height: 1.8;
+    font-size: 0.98rem;
+    font-weight: 200;
     margin: 0;
   }
 `

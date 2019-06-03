@@ -3,6 +3,7 @@ import { graphql } from 'gatsby'
 import SEO from '../components/general/SEO'
 import find from 'lodash.find'
 import styled from 'styled-components'
+import { useSpring, animated, config } from 'react-spring'
 
 import Hero from '../components/project/Hero'
 import ProjectDetails from '../components/project/ProjectDetails'
@@ -10,28 +11,10 @@ import TabletTwo from '../components/project/TabletTwo'
 import StickySection from '../components/project/StickySection'
 import FooterLink from '../components/project/FooterLink'
 
-const WrapperPage = styled.div`
-  z-index: 2;
-  @media screen and (min-width: ${props => props.theme.responsive.small}) {
-    position: relative;
-    &::before {
-      content: '';
-      display: block;
-      z-index: -2;
-      width: 0;
-      height: 75vh;
-      max-height: 750px;
-      background: transparent;
-    }
-    &::after {
-      content: '';
-      display: block;
-      z-index: -2;
-      width: 0;
-      height: 100vh;
-      background: transparent;
-    }
-  }
+const TransparentDiv = styled(animated.div)`
+  position: relative;
+  height: 100vh;
+  background: transparent;
 `
 
 const ProjectTemplate = ({ data, pageContext }) => {
@@ -59,10 +42,18 @@ const ProjectTemplate = ({ data, pageContext }) => {
     ({ node: post }) => post.id === id
   )
 
+  const WrapperPageAnimProps = useSpring({
+    config: config.slow,
+    delay: 2000,
+    from: { height: '100vh' },
+    to: { height: '80vh' },
+  })
+
   return (
     <>
       <SEO title={title} image={cover} description={content} />
-      <WrapperPage>
+      <>
+        <TransparentDiv style={WrapperPageAnimProps} />
         <Hero
           image={cover}
           title={title}
@@ -81,7 +72,7 @@ const ProjectTemplate = ({ data, pageContext }) => {
         />
         <StickySection stickyImage={stickyImage} />
         <FooterLink postIndex={postIndex} topic={topic} />
-      </WrapperPage>
+      </>
     </>
   )
 }

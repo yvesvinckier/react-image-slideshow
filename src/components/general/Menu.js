@@ -111,7 +111,7 @@ const MailToContainer = styled.p`
       transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
       transform: scaleX(1) translateZ(0);
     }
-    :hover::before {
+    &:hover::before {
       transform: scaleX(0) translateZ(0);
     }
     &::after {
@@ -196,7 +196,7 @@ const Menu = ({ opened }) => {
       <NavLeft style={NavLeftAnimation}>
         <MailToContainer>
           Start a conversation
-          <a href="mailto:hello@andy.com">hello@andy.com</a>
+          <a href="mailto:hello@blowup.design">hello@blowup.design</a>
         </MailToContainer>
       </NavLeft>
       <NavRight style={NavRightAnimation}>

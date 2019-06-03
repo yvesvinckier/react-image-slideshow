@@ -5,6 +5,7 @@ import { useSpring, animated, config } from 'react-spring'
 import BgImg from '../general/Background'
 
 const Wrapper = styled(animated.div)`
+  text-align: center;
   position: relative;
   width: 100%;
   z-index: -1;
@@ -12,9 +13,6 @@ const Wrapper = styled(animated.div)`
   @media screen and (min-width: ${props => props.theme.responsive.small}) {
     top: 0;
     position: fixed;
-  }
-  div {
-    max-height: 750px;
   }
   &::before {
     content: '';
@@ -26,7 +24,6 @@ const Wrapper = styled(animated.div)`
     bottom: 0;
     height: 100%;
     width: 100%;
-    z-index: 1;
   }
 `
 
@@ -40,10 +37,8 @@ const OverflowHeroTitle = styled.div`
 `
 const HeroTitleH2 = styled(animated.div)`
   h2 {
-    font-family: spectral, Times New Roman, Times, serif;
-    font-size: 1em;
-    font-style: italic;
-    font-weight: 300;
+    font-size: 0.6em;
+    font-weight: 400;
     @media screen and (min-width: ${props => props.theme.responsive.small}) {
       font-size: 1em;
     }
@@ -138,20 +133,13 @@ function Hero(props) {
 
   const HeroAnimProps = useSpring({
     config: config.slow,
-    delay: 1200,
+    delay: 2000,
     from: { height: '100vh' },
     to: { height: '80vh' },
   })
 
   return (
     <Wrapper style={HeroAnimProps}>
-      <BgImg
-        height={'100vh'}
-        fluid={props.image.fluid}
-        alt={props.image.title}
-        title={props.image.title}
-        backgroundColor={'#212121'}
-      />
       <OverflowHeroTitle>
         <HeroTitleH2 style={HeroTitleAnimProps}>
           <h2>{props.herotitle} </h2>
@@ -168,6 +156,13 @@ function Hero(props) {
           <span>{props.category.name}</span>
         </OverflowCategoryAnim>
       </OverflowCategory>
+      <BgImg
+        height={'100vh'}
+        fluid={props.image.fluid}
+        alt={props.image.title}
+        title={props.image.title}
+        backgroundColor={'#212121'}
+      />
     </Wrapper>
   )
 }
