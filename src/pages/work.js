@@ -1,6 +1,5 @@
-import React, { useState, useRef } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import { useSpring, animated } from 'react-spring'
 import { Link, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import SEO from '../components/general/SEO'
@@ -22,6 +21,7 @@ const HomeList = styled.ul`
     height: 500px;
   }
   li {
+    background: white;
     div {
       transition: transform 0.5s;
       height: 100%;
@@ -32,11 +32,6 @@ const HomeList = styled.ul`
     position: relative;
     flex: 0 0 49.45%;
     margin: 0.5vw 0;
-    &:hover {
-      div {
-        transform: scale(0.98);
-      }
-    }
   }
   h2 {
     padding-top: 18px;
@@ -74,34 +69,34 @@ const BlackBackgroung = styled.div`
 
 
 const WorkPage = ({ data }) => {
-    const cards = data.allContentfulGallery.edges
-    return (
-        <>
-            <SEO />
-            <BlackBackgroung>
-                <h2>Projets</h2>
-                <HomeList>
-                    {cards.map(({ node: card }) => (
+  const cards = data.allContentfulGallery.edges
+  return (
+    <>
+      <SEO />
+      <BlackBackgroung>
+        <h2>Projets</h2>
+        <HomeList>
+          {cards.map(({ node: card }) => (
 
-                        <li key={card.id}>
-                            <Card>
-                                <Link to={`/${card.slug}/`}>
-                                    <Img
-                                        fluid={card.cover.fluid}
-                                        alt={card.cover.title}
-                                        title={card.cover.title}
-                                        backgroundColor={'#f1f1f1'}
-                                    />
-                                    <h2>{card.title}</h2>
-                                    <h4>{card.category.name}</h4>
-                                </Link>
-                            </Card>
-                        </li>
-                    ))}
-                </HomeList>
-            </BlackBackgroung>
-        </>
-    )
+            <li key={card.id}>
+              <Card>
+                <Link to={`/${card.slug}/`}>
+                  <Img
+                    fluid={card.cover.fluid}
+                    alt={card.cover.title}
+                    title={card.cover.title}
+                    backgroundColor={'#f1f1f1'}
+                  />
+                  <h2>{card.title}</h2>
+                  <h4>{card.category.name}</h4>
+                </Link>
+              </Card>
+            </li>
+          ))}
+        </HomeList>
+      </BlackBackgroung>
+    </>
+  )
 }
 
 export const query = graphql`
