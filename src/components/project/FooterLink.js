@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import BgImg from '../general/Background'
 import { Link } from 'gatsby'
+import { useSpring, animated } from 'react-spring'
 
 const PostPreview = styled.div`
   position: relative;
@@ -72,8 +73,17 @@ const FooterLinkInnerWrapper = styled.div`
   width: 38.095238095238095%;
   margin-left: 14.285714285714285%;
 `
+const calc = (x, y) => [
+  -(x - window.innerWidth / 2),
+  y - window.innerHeight / 2,
+]
+const trans1 = (x, y) => `translate3d(${x / 6}px,${y / 6}px,0)`
 
 const FooterLink = ({ postIndex, topic }) => {
+  const [props, set] = useSpring(() => ({
+    xy: [0, 0],
+    config: { mass: 10, tension: 550, friction: 140 },
+  }))
   return (
     <>
       {postIndex.next && (
@@ -82,24 +92,35 @@ const FooterLink = ({ postIndex, topic }) => {
             <FooterLinkInnerWrapper>
               <h2>{postIndex.next.title}</h2>
               <h3>{postIndex.next.topic}</h3>
-              <Link to={'/' + postIndex.next.slug + '/'}>
-                <span> See the case</span>
-                <div className="footer-link-icon">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 8"
-                    width="14"
-                    height="12.6"
-                    className="js-magnetic-content"
-                  >
-                    <path
-                      fill="white"
-                      fillRule="evenodd"
-                      d="M-.005 3.298h14.827c-.714-1.301-1.071-2.149-1.107-3.304 1.626 1.992 3.737 3.029 6.29 4.006-2.553.934-4.572 2.073-6.29 4.005.11-1.256.405-2.015 1.129-3.395H-.005V3.298z"
-                    />
-                  </svg>
-                </div>
-              </Link>
+              <animated.div
+                onMouseMove={({ clientX: x, clientY: y }) =>
+                  set({ xy: calc(x, y) })
+                }
+                onMouseLeave={() => set({ xy: [0, 0] })}
+              >
+                <animated.div
+                  style={{ transform: props.xy.interpolate(trans1) }}
+                >
+                  <Link to={'/' + postIndex.next.slug + '/'}>
+                    <span> See the case</span>
+                    <div className="footer-link-icon">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 8"
+                        width="14"
+                        height="12.6"
+                        className="js-magnetic-content"
+                      >
+                        <path
+                          fill="white"
+                          fillRule="evenodd"
+                          d="M-.005 3.298h14.827c-.714-1.301-1.071-2.149-1.107-3.304 1.626 1.992 3.737 3.029 6.29 4.006-2.553.934-4.572 2.073-6.29 4.005.11-1.256.405-2.015 1.129-3.395H-.005V3.298z"
+                        />
+                      </svg>
+                    </div>
+                  </Link>
+                </animated.div>
+              </animated.div>
             </FooterLinkInnerWrapper>
           </FooterLinkOuterWrapper>
           <BgImg

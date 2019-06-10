@@ -4,7 +4,7 @@ import { Link, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import SEO from '../components/general/SEO'
 
-import Card from '../components/work/Card'
+import ParallaxEffect from '../components/animations/ParallaxEffect'
 
 const HomeList = styled.ul`
   width: 100%;
@@ -23,7 +23,11 @@ const HomeList = styled.ul`
     position: relative;
     flex: 0 0 45%;
     margin: 0.5vw 0;
+    padding-bottom: 50px;
     will-change: transform;
+    :nth-child(2n) {
+      margin-top: -50px;
+    }
   }
   li {
     /* background: white; */
@@ -50,7 +54,7 @@ const HomeList = styled.ul`
 `
 const BlackBackgroung = styled.div`
   position: relative;
-  background: ${props => props.theme.colors.base};
+  background: ${props => props.theme.colors.tertiary};
   width: 100%;
   > h2 {
     margin: 0 auto;
@@ -73,7 +77,7 @@ const WorkPage = ({ data }) => {
         <h2>Projets</h2>
         <HomeList>
           {cards.map(({ node: card }) => (
-            <Card key={card.id}>
+            <ParallaxEffect key={card.id}>
               <li>
                 <Link to={`/${card.slug}/`}>
                   <Img
@@ -85,7 +89,7 @@ const WorkPage = ({ data }) => {
                   <h2>{card.title}</h2>
                 </Link>
               </li>
-            </Card>
+            </ParallaxEffect>
           ))}
         </HomeList>
       </BlackBackgroung>

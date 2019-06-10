@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { useSpring, animated } from 'react-spring'
 
-function Card({ children }) {
+function TiltEffect({ children }) {
   // We add this ref to card element and use in onMouseMove event ...
   // ... to get element's offset and dimensions.
   const ref = useRef()
@@ -69,4 +69,4 @@ function Card({ children }) {
   )
 }
 
-export default Card
+export default TiltEffect
