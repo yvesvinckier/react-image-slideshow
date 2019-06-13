@@ -10,6 +10,7 @@ import ProjectDetails from '../components/project/ProjectDetails'
 import TabletTwo from '../components/project/TabletTwo'
 import StickySection from '../components/project/StickySection'
 import FooterLink from '../components/project/FooterLink'
+import DisplacementSection from '../components/project/DisplacementSection'
 
 const TransparentDiv = styled(animated.div)`
   position: relative;
@@ -32,6 +33,10 @@ const ProjectTemplate = ({ data, pageContext }) => {
     tabletTwoDesc,
     stickyImage,
     topic,
+    url1,
+    url2,
+    disp,
+    intensity
   } = data.contentfulGallery
 
   // const previous = pageContext.prev
@@ -71,6 +76,7 @@ const ProjectTemplate = ({ data, pageContext }) => {
           tabletTwoDesc={tabletTwoDesc}
         />
         <StickySection stickyImage={stickyImage} />
+        <DisplacementSection url1={url1} url2={url2} disp={disp} intensity={intensity} />
         <FooterLink postIndex={postIndex} topic={topic} />
       </>
     </>
@@ -134,6 +140,22 @@ export const query = graphql`
           excerpt(format: PLAIN)
         }
       }
+      url1{
+        resize{
+          src
+        }
+      }
+      url2{
+        resize{
+          src
+        }
+      }
+      disp{
+        resize{
+          src
+        }
+      }
+      intensity
     }
     allContentfulGallery(
       filter: { node_locale: { eq: "fr-FR" } }

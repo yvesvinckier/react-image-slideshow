@@ -5,7 +5,7 @@ import GlobalStyle from '../../styles/global'
 import theme from '../../styles/theme'
 
 import Nav from '../general/Nav'
-import Footer from './Footer'
+// import Footer from './Footer'
 
 class Layout extends React.Component {
   render() {
@@ -24,7 +24,7 @@ class Layout extends React.Component {
           <Nav />
           <section role="main">
             {children}
-            <Footer />
+            {/* <Footer /> */}
           </section>
           <GlobalStyle />
         </div>

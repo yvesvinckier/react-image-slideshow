@@ -88,6 +88,7 @@ function Image(props) {
 }
 
 function AboutPage() {
+
   return (
     <Layout>
       <Grid>
