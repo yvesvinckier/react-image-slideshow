@@ -33,10 +33,6 @@ const ProjectTemplate = ({ data, pageContext }) => {
     tabletTwoDesc,
     stickyImage,
     topic,
-    url1,
-    url2,
-    disp,
-    intensity
   } = data.contentfulGallery
 
   // const previous = pageContext.prev
@@ -76,7 +72,7 @@ const ProjectTemplate = ({ data, pageContext }) => {
           tabletTwoDesc={tabletTwoDesc}
         />
         <StickySection stickyImage={stickyImage} />
-        <DisplacementSection url1={url1} url2={url2} disp={disp} intensity={intensity} />
+        <DisplacementSection />
         <FooterLink postIndex={postIndex} topic={topic} />
       </>
     </>
@@ -140,18 +136,18 @@ export const query = graphql`
           excerpt(format: PLAIN)
         }
       }
-      url1{
-        resize{
+      url1 {
+        resize {
           src
         }
       }
-      url2{
-        resize{
+      url2 {
+        resize {
           src
         }
       }
-      disp{
-        resize{
+      disp {
+        resize {
           src
         }
       }
