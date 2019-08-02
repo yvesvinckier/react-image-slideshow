@@ -126,7 +126,7 @@ export const query = graphql`
         }
       }
       tabletTwo {
-        fluid(maxWidth: 1800) {
+        fluid(maxWidth: 4000) {
           ...GatsbyContentfulFluid_withWebp_noBase64
         }
       }
